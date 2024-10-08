@@ -10,6 +10,7 @@ While exploring our dashboard, it is important that the user takes into consider
 
 - References for the data source(s)
 Our data is primarily sourced from the World Bank's Data Catalog. Indicators were selected based on which we thought best indicated quality of life.
+
 - References for any code used that is not your own
 
 It is important to note that while a majority of the data is accurate and sourced from World Bank, some data did have to be interpolated due to missing values. By default Pandas utilizes linear interpolation, so the missing values were estimated as the median of the value above and below it in the respective data frames.
