@@ -21,3 +21,4 @@ List of tasks for 10/8:
 - Common parameters/"series name" between years
 - Divvy up categories and subcategories of parameters
 - Begin to finalize analyses to create needed visualizations
+- Complete ETL portion
