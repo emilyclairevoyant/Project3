@@ -18,6 +18,7 @@ Our data is primarily sourced from the World Bank's Data Catalog. Indicators wer
 It is important to note that while a majority of the data is accurate and sourced from World Bank, some data did have to be interpolated due to missing values. By default Pandas utilizes linear interpolation, so the missing values were estimated as the median of the value above and below it in the respective data frames.
 
 List of tasks for 10/8:
+
 [x] Common parameters/"series name" between years
 [] Divvy up categories and subcategories of parameters
 [] Begin to finalize analyses to create needed visualizations
