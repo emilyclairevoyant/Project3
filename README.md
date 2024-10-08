@@ -22,3 +22,42 @@ List of tasks for 10/8:
 - Divvy up categories and subcategories of parameters
 - Begin to finalize analyses to create needed visualizations
 - Complete ETL portion
+
+Common columns for further analysis:
+- Inflation, consumer prices (annual %)
+- Control of Corruption: Estimate
+- Refugee population by country or territory of asylum
+- Survival to age 65, female (% of cohort)
+- Regulatory Quality: Estimate
+- Immunization, HepB3 (% of one-year-old children)
+- Proportion of seats held by women in national parliaments (%)
+- Current health expenditure (% of GDP)
+- Current education expenditure, total (% of total expenditure in public institutions)
+- Immunization, DPT (% of children ages 12-23 months)
+- Women participating in the three decisions (own health care, major household purchases, and visiting family) (% of women age 15-49)
+- Immunization, measles (% of children ages 12-23 months)
+- Statistical performance indicators (SPI): Overall score (scale 0-100)
+- Lending interest rate (%)
+- Government Effectiveness: Estimate
+- Individuals using the Internet (% of population)
+- Unemployment, total (% of total labor force) (national estimate)
+- Losses due to theft and vandalism (% of annual sales for affected firms)
+- Women making their own informed decisions regarding sexual relations, contraceptive use and reproductive health care (% of women age 15-49)
+- Rule of Law: Estimate
+- Access to electricity (% of population)
+- Voice and Accountability: Estimate
+- Gini index
+- Compensation of employees (current LCU)
+- Internally displaced persons, total displaced by conflict and violence (number of people)
+- Persistence to last grade of primary, total (% of cohort)
+- Net migration
+- Out-of-pocket expenditure (% of current health expenditure)
+- Risk of impoverishing expenditure for surgical care (% of people at risk)
+- Life expectancy at birth, total (years)
+- Political Stability and Absence of Violence/Terrorism: Estimate
+- Survival to age 65, male (% of cohort)
+- Multidimensional poverty headcount ratio (World Bank) (% of population)
+- Primary completion rate, total (% of relevant age group)
+- Mobile cellular subscriptions (per 100 people)
+- Share of youth not in education, employment or training, total (% of youth population)
+- Literacy rate, adult total (% of people ages 15 and above)
