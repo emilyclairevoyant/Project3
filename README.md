@@ -21,9 +21,9 @@ List of tasks for 10/8:
 
 - [x] Common parameters/"series name" between years
 
-- [] Divvy up categories and subcategories of parameters
+- [ ] Divvy up categories and subcategories of parameters
 
-- [] Begin to finalize analyses to create needed visualizations
+- [ ] Begin to finalize analyses to create needed visualizations
 
 
 Common columns for further analysis:
