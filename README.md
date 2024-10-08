@@ -1,5 +1,6 @@
 # Project3
 - An overview of the project and its purpose
+
 Whether going on vacation or planning a move, many individuals worry about their safety and happiness in their new location. Despite a plethora of information on the web – including various articles and videos – people can get overwhelmed when searching for answers on various aspects of the new country and keeping track of the newly acquired information. Not only can it be difficult to research, but a layperson can also find it difficult to understand the surveys and quality of life indexes they do find.
 
 - Instructions on how to use and interact with the project
