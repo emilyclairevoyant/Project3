@@ -7,7 +7,7 @@ function createMap() {
 
   // Add OpenStreetMap tile layer
   let streetmap = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    maxZoom: 19,
+    maxZoom: 6,
     attribution: '© OpenStreetMap contributors'
   }).addTo(map);
 
@@ -22,8 +22,10 @@ function createMap() {
   }).addTo(map);
 
   // Load GeoJSON data
-  let link = "Resources/countries-land-10km.geo.json";
+  let link = "Resources/World_Countries_(Generalized)_9029012925078512962.geojson";
+  // let link = "/Resources/countries-land-5km.geojson";
   d3.json(link).then(function(data) {
+    console.log(data)
     // Creating a GeoJSON layer with the retrieved data
     L.geoJson(data, {
       onEachFeature: onEachFeature,
@@ -50,7 +52,9 @@ function createMap() {
       },
       click: function(e) {
         // Bind a popup to show information when clicked
-        layer.bindPopup("Information: " + feature.properties.info).openPopup();
+        // layer.bindPopup("Information: " + feature.properties.info).openPopup();
+        layer.bindPopup("Information:", feature.features[0].properties.COUNTRY).openPopup();
+        // layer.bindPopup("Information:", properties.COUNTRY).openPopup();
       }
     });
 
