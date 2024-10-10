@@ -31,7 +31,7 @@ List of tasks 10/10:
 - [ ] samples/functions for visualizations
 - [ ] solidify additional library
 
-##Categories and Sub-categories
+## Categories and Sub-categories
 1. Health
 - Immunization, HepB3 (% of one-year-old children)
 - Immunization, DPT (% of children ages 12-23 months)
