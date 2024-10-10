@@ -21,46 +21,59 @@ List of tasks for 10/8:
 
 - [x] Common parameters/"series name" between years
 
-- [ ] Divvy up categories and subcategories of parameters
+- [x] Divvy up categories and subcategories of parameters
 
 - [ ] Begin to finalize analyses to create needed visualizations
 
+List of tasks 10/10:
+- [ ] continue HTML base (populate dropdown sample, event clickers?)
+- [ ] offical mongo-Java connection (FLASK API)
+- [ ] samples/functions for visualizations
+- [ ] solidify additional library
 
-Common columns for further analysis:
-- Inflation, consumer prices (annual %)
-- Control of Corruption: Estimate
-- Refugee population by country or territory of asylum
-- Survival to age 65, female (% of cohort)
-- Regulatory Quality: Estimate
+## Categories and Sub-categories
+1. Health
 - Immunization, HepB3 (% of one-year-old children)
-- Proportion of seats held by women in national parliaments (%)
-- Current health expenditure (% of GDP)
-- Current education expenditure, total (% of total expenditure in public institutions)
 - Immunization, DPT (% of children ages 12-23 months)
-- Women participating in the three decisions (own health care, major household purchases, and visiting family) (% of women age 15-49)
-- Immunization, measles (% of children ages 12-23 months)
-- Statistical performance indicators (SPI): Overall score (scale 0-100)
-- Lending interest rate (%)
-- Government Effectiveness: Estimate
-- Individuals using the Internet (% of population)
-- Unemployment, total (% of total labor force) (national estimate)
-- Losses due to theft and vandalism (% of annual sales for affected firms)
-- Women making their own informed decisions regarding sexual relations, contraceptive use and reproductive health care (% of women age 15-49)
-- Rule of Law: Estimate
-- Access to electricity (% of population)
-- Voice and Accountability: Estimate
-- Gini index
-- Compensation of employees (current LCU)
-- Internally displaced persons, total displaced by conflict and violence (number of people)
-- Persistence to last grade of primary, total (% of cohort)
-- Net migration
+- Current health expenditure (% of GDP)
 - Out-of-pocket expenditure (% of current health expenditure)
-- Risk of impoverishing expenditure for surgical care (% of people at risk)
+- Immunization, measles (% of children ages 12-23 months)
 - Life expectancy at birth, total (years)
-- Political Stability and Absence of Violence/Terrorism: Estimate
 - Survival to age 65, male (% of cohort)
-- Multidimensional poverty headcount ratio (World Bank) (% of population)
-- Primary completion rate, total (% of relevant age group)
-- Mobile cellular subscriptions (per 100 people)
+- Immunization, measles (% of children ages 12-23 months)
+- Survival to age 65, female (% of cohort)
+2. Family friendly (inclu edu)
+- Persistence to last grade of primary, total (% of cohort)
 - Share of youth not in education, employment or training, total (% of youth population)
+- Primary completion rate, total (% of relevant age group)
 - Literacy rate, adult total (% of people ages 15 and above)
+- Current education expenditure, total (% of total expenditure in public institutions)
+3. Job market
+- Compensation of employees (current LCU)
+- Unemployment, total (% of total labor force) (national estimate)
+- Regulatory Quality: Estimate
+4. Affordability
+- Risk of impoverishing expenditure for surgical care (% of people at risk)
+- Gini index
+- Inflation, consumer prices (annual %)
+- Lending interest rate (%)
+5. Poverty
+- Multidimensional poverty headcount ratio (World Bank) (% of population)
+6. Peace and Security (polit stab, marg groups, etc)
+- Women making their own informed decisions regarding sexual relations, contraceptive use and reproductive health care (% of women age 15-49)
+- Political Stability and Absence of Violence/Terrorism: Estimate
+- Rule of Law: Estimate
+- Internally displaced persons, total displaced by conflict and violence (number of people)
+- Women participating in the three decisions (own health care, major household purchases, and visiting family) (% of women age 15-49)
+- Refugee population by country or territory of asylum
+- Voice and Accountability: Estimate
+- Control of Corruption: Estimate
+- Losses due to theft and vandalism (% of annual sales for affected firms)
+- Government Effectiveness: Estimate
+- Proportion of seats held by women in national parliaments (%)
+- Net migration
+7. Infrastructure 
+- Mobile cellular subscriptions (per 100 people)
+- Access to electricity (% of population)
+- Individuals using the Internet (% of population)
+- Statistical performance indicators (SPI): Overall score (scale 0-100)
