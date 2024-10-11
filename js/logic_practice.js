@@ -53,8 +53,9 @@ function createMap() {
       click: function(e) {
         // Bind a popup to show information when clicked
         // layer.bindPopup("Information: " + feature.properties.info).openPopup();
-        layer.bindPopup("Information:", feature.features[0].properties.COUNTRY).openPopup();
+        layer.bindPopup("Information:" + feature.properties.COUNTRY).openPopup();
         // layer.bindPopup("Information:", properties.COUNTRY).openPopup();
+        console.log(feature.properties.COUNTRY)
       }
     });
 
