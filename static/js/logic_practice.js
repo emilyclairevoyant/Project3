@@ -22,7 +22,7 @@ function createMap() {
   }).addTo(map);
 
   // Load GeoJSON data
-  let link = "Resources/World_Countries_(Generalized)_9029012925078512962.geojson";
+  let link = "../Resources/World_Countries_(Generalized)_9029012925078512962.geojson";
   // let link = "/Resources/countries-land-5km.geojson";
   d3.json(link).then(function(data) {
     console.log(data)
