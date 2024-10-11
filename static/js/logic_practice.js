@@ -31,7 +31,7 @@ function createMap() {
       onEachFeature: onEachFeature,
       style: function(feature) 
       {
-        return { color: 'orange', fillOpacity: 0.1 }; // Initial style
+        return { color: 'green', fillOpacity: 0.1 }; // Initial style
       }
     }).addTo(map);
   });
@@ -55,7 +55,7 @@ function createMap() {
         // layer.bindPopup("Information: " + feature.properties.info).openPopup();
         layer.bindPopup("Information:" + feature.properties.COUNTRY).openPopup();
         // layer.bindPopup("Information:", properties.COUNTRY).openPopup();
-        console.log(feature.properties.COUNTRY)
+        // console.log(feature.properties.COUNTRY)
       }
     });
 
