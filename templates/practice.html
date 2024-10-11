@@ -39,6 +39,22 @@
         <div id="bar"></div> <!-- Bar chart will be rendered here -->
       </div>
     </div>
+    <h1>Flask API Data</h1>
+    <div id="result"></div>
+    <!-- <script src="../static/js/plot_practice.js"></script> -->
+
+    <script>
+      // Fetch data from the Flask API
+      fetch('http://127.0.0.1:5000/data')
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+            // Process your data here
+            // Assuming data is an object, you can display it as follows:
+            document.getElementById('result').innerHTML = JSON.stringify(data, null, 2);
+        })
+        .catch(error => console.error('Error:', error));
+    </script>
   </div>
 
   <!-- D3 library -->
