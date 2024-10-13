@@ -4,6 +4,7 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 18 
 
 let geojsonLayer;
 
+<<<<<<< HEAD
 // Load GeoJSON Data and create a heatmap based on Quality of Life Index
 function loadGeoJSON(data, countryData, selectedCountry = null) {
     // Define color based on Quality of Life Index
@@ -135,3 +136,35 @@ d3.select("#countrySelect").on("change", function() {
 
 // Initialize the dashboard
 init();
+=======
+// List of JSON files
+const files = [
+    '../Resources/data_2018.json',
+    '../Resources/data_2019.json',
+    '../Resources/data_2020.json',
+    '../Resources/data_2021.json',
+    '../Resources/data_2022.json'
+];
+
+// Fetch all the files
+let addedCountries = new Set(); // To track added countries
+Promise.all(files.map(file => fetch(file).then(response => response.json())))
+    .then(datas => {
+        const select = document.getElementById("selDataset");
+
+        // Process each data set
+        datas.forEach(data => {
+            data.features.forEach(feature => {
+                const countryName = feature.properties["Country Name"];
+                if (countryName && !addedCountries.has(countryName)) {
+                    addedCountries.add(countryName); // Add to the set
+                    var option = document.createElement("option");
+                    option.value = countryName;
+                    option.text = countryName;
+                    select.appendChild(option);
+                }
+            });
+        });
+    })
+    .catch(error => console.error('Error loading JSON:', error));
+>>>>>>> 9f3bd7e (thursday work)
