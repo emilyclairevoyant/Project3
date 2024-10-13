@@ -22,21 +22,25 @@ function createMap() {
   }).addTo(map);
 
   // Load GeoJSON data
-  let link = "../Resources/World_Countries_(Generalized)_9029012925078512962.geojson";
+  let geolink = "../Resources/World_Countries_(Generalized)_9029012925078512962.geojson";
   // let link = "/Resources/countries-land-5km.geojson";
-  d3.json(link).then(function(data) {
-    console.log(data)
+  d3.json(geolink).then(function(geodata) {
+    console.log(geodata)
+    let qualityOfLifeLink = "../Resources/standard-of-living-by-country-_-quality-of-life-by-country-2024.json";
+    d3.json(qualityOfLifeLink).then(function(qualityData) {
+      console.log(qualityData);
     // Creating a GeoJSON layer with the retrieved data
-    L.geoJson(data, {
-      onEachFeature: onEachFeature,
-      style: function(feature) 
-      {
+    L.geoJson(geodata, {
+      onEachFeature: function(feature, layer) {
+        onEachFeature(feature, layer, qualityData);
+      },
+      style: function(feature) {
         return { color: 'green', fillOpacity: 0.1 }; // Initial style
       }
     }).addTo(map);
   });
 
-  function onEachFeature(feature, layer) {
+  function onEachFeature(feature, layer, qualityData) {
     // Highlight the feature on mouseover
     layer.on({
       mouseover: function(e) {
@@ -51,18 +55,30 @@ function createMap() {
         });
       },
       click: function(e) {
-        // Bind a popup to show information when clicked
-        // layer.bindPopup("Information: " + feature.properties.info).openPopup();
-        layer.bindPopup("Information:" + feature.properties.COUNTRY).openPopup();
-        // layer.bindPopup("Information:", properties.COUNTRY).openPopup();
-        // console.log(feature.properties.COUNTRY)
-      }
-    });
+        // Country name
+        let countryname = feature.properties.COUNTRY;
+        let qualityScore = "Data not available"; // Default value
 
-    // Bind a popup to show information when clicked
-    layer.bindPopup(feature.properties.name); // Change 'name' to the property you want to show
-  }
-}
+        if (countryname === "Russian Federation") {
+          // Check if qualityData is an array and find the corresponding country
+          if (Array.isArray(qualityData)) {
+              for (let data of qualityData) {
+                  if (data.country === "Russia") { // Check for exact match
+                      qualityScore = data.StandardOfLiving_QoLScoreNumbeo_2023MidYear || "Data not available";
+        }}}} else {
+          // Check if qualityData is an array and find the corresponding country
+          if (Array.isArray(qualityData)) {
+          for (let data of qualityData) {
+            if (data.country === countryname) {
+              qualityScore = data.StandardOfLiving_QoLScoreNumbeo_2023MidYear || "Data not available";
+              break; // Exit the loop once found
+            }
+          }
+        }}
+        // Bind a popup to show information when clicked
+        layer.bindPopup("Country: " + countryname + "<br>Quality of Life Score: " + qualityScore).openPopup();
+      }
+  })}});}
 
 // Call createMap with appropriate data
 createMap(); 
