@@ -63,8 +63,8 @@ List of tasks 10/10:
 - Gini index
 - Inflation, consumer prices (annual %)
 - Lending interest rate (%)
-5. Poverty
 - Multidimensional poverty headcount ratio (World Bank) (% of population)
+- 
 6. Peace and Security (polit stab, marg groups, etc)
 - Women making their own informed decisions regarding sexual relations, contraceptive use and reproductive health care (% of women age 15-49)
 - Political Stability and Absence of Violence/Terrorism: Estimate
