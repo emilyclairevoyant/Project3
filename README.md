@@ -12,7 +12,8 @@ While exploring our dashboard, it is important that the user takes into consider
 - References for the data source(s)
   
 Our data is primarily sourced from the World Bank's Data Catalog. Indicators were selected based on which we thought best indicated quality of life.
-Our GEOJSON for country names and coordinated was sourced from https://hub.arcgis.com/datasets/esri::world-countries-generalized/explore .
+Our GEOJSON for country names and coordinates was sourced from https://hub.arcgis.com/datasets/esri::world-countries-generalized/explore .
+Our population for each country data was sourced from https://data.worldbank.org/indicator/SP.POP.TOTL
 
 - References for any code used that is not your own
 
