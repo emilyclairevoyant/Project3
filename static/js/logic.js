@@ -1,10 +1,87 @@
-// Initialize the map
-const map = L.map('map').setView([20, 0], 2); // Centered on the world
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 18 }).addTo(map);
+function createMap() {
+// Create the map object with options.
+  let map = L.map('map', {
+    center: [20, 0], 
+    zoom: 2
+  });
+
+  // Add OpenStreetMap tile layer
+  let streetmap = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 6,
+    attribution: '© OpenStreetMap contributors'
+  }).addTo(map);
+
+  // Create a baseMaps object to hold the streetmap layer.
+  let baseMaps = {
+    "Street Map": streetmap
+  };
+
+  // Create a layer control, and pass it baseMaps and overlayMaps. Add the layer control to the map.
+  L.control.layers(baseMaps, {}, {
+    collapsed: false
+  }).addTo(map);
+
+  // Load GeoJSON data
+  let geolink = "../Resources/World_Countries_(Generalized)_9029012925078512962.geojson";
+  // let link = "/Resources/countries-land-5km.geojson";
+  d3.json(geolink).then(function(geodata) {
+    console.log(geodata)
+    let qualityOfLifeLink = "../Resources/standard-of-living-by-country-_-quality-of-life-by-country-2024.json";
+    d3.json(qualityOfLifeLink).then(function(qualityData) {
+      console.log(qualityData);
+    // Creating a GeoJSON layer with the retrieved data
+    L.geoJson(geodata, {
+      onEachFeature: function(feature, layer) {
+        onEachFeature(feature, layer, qualityData);
+      },
+      style: function(feature) {
+        return { color: 'green', fillOpacity: 0.1 }; // Initial style
+      }
+    }).addTo(map);
+  });
+
+  function onEachFeature(feature, layer, qualityData) {
+    // Highlight the feature on mouseover
+    layer.on({
+      mouseover: function(e) {
+        layer.setStyle({
+          fillOpacity: 0.5 // Change opacity to highlight
+        });
+        layer.bringToFront(); // Bring the layer to the front
+      },
+      mouseout: function(e) {
+        layer.setStyle({
+          fillOpacity: 0.1 // Reset opacity
+        });
+      },
+      click: function(e) {
+        // Country name
+        let countryname = feature.properties.COUNTRY;
+        let qualityScore = "Data not available"; // Default value
+
+        if (countryname === "Russian Federation") {
+          // Check if qualityData is an array and find the corresponding country
+          if (Array.isArray(qualityData)) {
+              for (let data of qualityData) {
+                  if (data.country === "Russia") { // Check for exact match
+                      qualityScore = data.StandardOfLiving_QoLScoreNumbeo_2023MidYear || "Data not available";
+        }}}} else {
+          // Check if qualityData is an array and find the corresponding country
+          if (Array.isArray(qualityData)) {
+          for (let data of qualityData) {
+            if (data.country === countryname) {
+              qualityScore = data.StandardOfLiving_QoLScoreNumbeo_2023MidYear || "Data not available";
+              break; // Exit the loop once found
+            }
+          }
+        }}
+        // Bind a popup to show information when clicked
+        layer.bindPopup("Country: " + countryname + "<br>Quality of Life Score: " + qualityScore).openPopup();
+      }
+  })}});}
 
 let geojsonLayer;
 
-<<<<<<< HEAD
 // Load GeoJSON Data and create a heatmap based on Quality of Life Index
 function loadGeoJSON(data, countryData, selectedCountry = null) {
     // Define color based on Quality of Life Index
@@ -39,30 +116,30 @@ function loadGeoJSON(data, countryData, selectedCountry = null) {
         };
     }
 
-    // Remove previous layer
-    if (geojsonLayer) {
-        map.removeLayer(geojsonLayer);
-    }
+    // // Remove previous layer
+    // if (geojsonLayer) {
+    //     map.removeLayer(geojsonLayer);
+    // }
 
-    // Add GeoJSON layer with the new data and style
-    geojsonLayer = L.geoJSON(data, {
-        style: style,
-        onEachFeature: function (feature, layer) {
-            let country = feature.properties.name;
-            let countryInfo = countryData.find(d => d['Country Name'] === country);
-            let qol = countryInfo && countryInfo['Quality of Life  '] !== undefined 
-                ? countryInfo['Quality of Life  '] 
-                : 'N/A';
+    // // Add GeoJSON layer with the new data and style
+    // geojsonLayer = L.geoJSON(data, {
+    //     style: style,
+    //     onEachFeature: function (feature, layer) {
+    //         let country = feature.properties.name;
+    //         let countryInfo = countryData.find(d => d['Country Name'] === country);
+    //         let qol = countryInfo && countryInfo['Quality of Life  '] !== undefined 
+    //             ? countryInfo['Quality of Life  '] 
+    //             : 'N/A';
 
-            layer.bindPopup(`${country}<br>Quality of Life: ${qol}`);
-        }
-    }).addTo(map);
+    //         layer.bindPopup(`${country}<br>Quality of Life: ${qol}`);
+    //     }
+    // }).addTo(map);
 
-    // If a specific country is selected, fit the map bounds to that country
-    if (selectedCountry) {
-        let bounds = geojsonLayer.getBounds();
-        map.fitBounds(bounds);  // Zoom to the selected country
-    }
+    // // If a specific country is selected, fit the map bounds to that country
+    // if (selectedCountry) {
+    //     let bounds = geojsonLayer.getBounds();
+    //     map.fitBounds(bounds);  // Zoom to the selected country
+    // }
 }
 
 // Function to initialize dropdown and summary info
@@ -72,7 +149,7 @@ function init() {
     // Retrieve summary info
     d3.json('http://127.0.0.1:5000/summary_info').then((data) => {
         // Extract country names
-        let countryNames = data.map(d => d['Country Name']); // Assuming 'Country Name' is the field
+        let countryNames = data.map(d => d['Country Name']); 
 
         // Populate the dropdown menu with country names
         countryNames.forEach((country) => {
@@ -90,6 +167,21 @@ function init() {
                 let firstCountry = countryNames[0];
                 updateSummaryInfo(firstCountry);  // Display the first country's data
             });
+        fetch('../Resources/World_Countries_(Generalized)_9029012925078512962.geojson')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok ' + response.statusText);
+            }
+            return response.json();
+        })
+        .then(geoData => {
+            loadGeoJSON(geoData, data);
+            let firstCountry = countryNames[0];
+            updateSummaryInfo(firstCountry);
+        })
+        .catch(error => {
+            console.error('There has been a problem with your fetch operation:', error);
+        }); 
     });
 }
 
@@ -117,14 +209,14 @@ function updateSummaryInfo(country) {
             .append("p").text(`Quality of Life (Numbeo 2023): ${qualityOfLife}`)
             .append("p").text(`Rank: ${rank}`);
 
-        // Update map for the selected country
-        fetch('../Resources/World_Countries_(Generalized)_9029012925078512962.geojson')
-            .then(response => response.json())
-            .then(geoData => {
-                loadGeoJSON(geoData, data, country);  // Reapply heatmap for the selected country
-            });
-    });
-}
+    //     // Update map for the selected country
+    //     fetch('../Resources/World_Countries_(Generalized)_9029012925078512962.geojson')
+    //         .then(response => response.json())
+    //         .then(geoData => {
+    //             loadGeoJSON(geoData, data, country);  // Reapply heatmap for the selected country
+    //         });
+    // });
+})}
 
 // Event listener for dropdown change
 d3.select("#countrySelect").on("change", function() {
@@ -134,37 +226,7 @@ d3.select("#countrySelect").on("change", function() {
     updateSummaryInfo(selectedCountry);
 });
 
+// run create map function
+createMap();
 // Initialize the dashboard
 init();
-=======
-// List of JSON files
-const files = [
-    '../Resources/data_2018.json',
-    '../Resources/data_2019.json',
-    '../Resources/data_2020.json',
-    '../Resources/data_2021.json',
-    '../Resources/data_2022.json'
-];
-
-// Fetch all the files
-let addedCountries = new Set(); // To track added countries
-Promise.all(files.map(file => fetch(file).then(response => response.json())))
-    .then(datas => {
-        const select = document.getElementById("selDataset");
-
-        // Process each data set
-        datas.forEach(data => {
-            data.features.forEach(feature => {
-                const countryName = feature.properties["Country Name"];
-                if (countryName && !addedCountries.has(countryName)) {
-                    addedCountries.add(countryName); // Add to the set
-                    var option = document.createElement("option");
-                    option.value = countryName;
-                    option.text = countryName;
-                    select.appendChild(option);
-                }
-            });
-        });
-    })
-    .catch(error => console.error('Error loading JSON:', error));
->>>>>>> 9f3bd7e (thursday work)
