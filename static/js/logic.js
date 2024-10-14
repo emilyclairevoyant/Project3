@@ -2,12 +2,12 @@ function createMap() {
 // Create the map object with options.
   let map = L.map('map', {
     center: [20, 0], 
-    zoom: 2
+    zoom: 1.5
   });
 
   // Add OpenStreetMap tile layer
   let streetmap = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    maxZoom: 6,
+    maxZoom: 4,
     attribution: '© OpenStreetMap contributors'
   }).addTo(map);
 
@@ -35,7 +35,7 @@ function createMap() {
         onEachFeature(feature, layer, qualityData);
       },
       style: function(feature) {
-        return { color: 'green', fillOpacity: 0.1 }; // Initial style
+        return { color: 'yellowgreen', fillOpacity: 0.0 }; // Initial style
       }
     }).addTo(map);
   });
@@ -51,7 +51,7 @@ function createMap() {
       },
       mouseout: function(e) {
         layer.setStyle({
-          fillOpacity: 0.1 // Reset opacity
+          fillOpacity: 0.0 // Reset opacity
         });
       },
       click: function(e) {
@@ -230,3 +230,4 @@ d3.select("#countrySelect").on("change", function() {
 createMap();
 // Initialize the dashboard
 init();
+
