@@ -2,12 +2,20 @@ function createMap() {
 // Create the map object with options.
   let map = L.map('map', {
     center: [20, 0], 
+<<<<<<< HEAD
     zoom: 2
+=======
+    zoom: 1.5
+>>>>>>> 5cd7506c2d4b7c9f5894e53aa49e5f8493adaf26
   });
 
   // Add OpenStreetMap tile layer
   let streetmap = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+<<<<<<< HEAD
     maxZoom: 6,
+=======
+    maxZoom: 4,
+>>>>>>> 5cd7506c2d4b7c9f5894e53aa49e5f8493adaf26
     attribution: '© OpenStreetMap contributors'
   }).addTo(map);
 
@@ -35,7 +43,11 @@ function createMap() {
         onEachFeature(feature, layer, qualityData);
       },
       style: function(feature) {
+<<<<<<< HEAD
         return { color: 'green', fillOpacity: 0.1 }; // Initial style
+=======
+        return { color: 'yellowgreen', fillOpacity: 0.0 }; // Initial style
+>>>>>>> 5cd7506c2d4b7c9f5894e53aa49e5f8493adaf26
       }
     }).addTo(map);
   });
@@ -51,7 +63,11 @@ function createMap() {
       },
       mouseout: function(e) {
         layer.setStyle({
+<<<<<<< HEAD
           fillOpacity: 0.1 // Reset opacity
+=======
+          fillOpacity: 0.0 // Reset opacity
+>>>>>>> 5cd7506c2d4b7c9f5894e53aa49e5f8493adaf26
         });
       },
       click: function(e) {
@@ -230,3 +246,7 @@ d3.select("#countrySelect").on("change", function() {
 createMap();
 // Initialize the dashboard
 init();
+<<<<<<< HEAD
+=======
+
+>>>>>>> 5cd7506c2d4b7c9f5894e53aa49e5f8493adaf26
