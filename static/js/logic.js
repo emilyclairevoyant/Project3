@@ -2,20 +2,12 @@ function createMap() {
 // Create the map object with options.
   let map = L.map('map', {
     center: [20, 0], 
-<<<<<<< HEAD
-    zoom: 2
-=======
     zoom: 1.5
->>>>>>> 5cd7506c2d4b7c9f5894e53aa49e5f8493adaf26
   });
 
   // Add OpenStreetMap tile layer
   let streetmap = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-<<<<<<< HEAD
-    maxZoom: 6,
-=======
-    maxZoom: 4,
->>>>>>> 5cd7506c2d4b7c9f5894e53aa49e5f8493adaf26
+    maxZoom: 8,
     attribution: '© OpenStreetMap contributors'
   }).addTo(map);
 
@@ -43,11 +35,7 @@ function createMap() {
         onEachFeature(feature, layer, qualityData);
       },
       style: function(feature) {
-<<<<<<< HEAD
-        return { color: 'green', fillOpacity: 0.1 }; // Initial style
-=======
         return { color: 'yellowgreen', fillOpacity: 0.0 }; // Initial style
->>>>>>> 5cd7506c2d4b7c9f5894e53aa49e5f8493adaf26
       }
     }).addTo(map);
   });
@@ -63,11 +51,7 @@ function createMap() {
       },
       mouseout: function(e) {
         layer.setStyle({
-<<<<<<< HEAD
-          fillOpacity: 0.1 // Reset opacity
-=======
           fillOpacity: 0.0 // Reset opacity
->>>>>>> 5cd7506c2d4b7c9f5894e53aa49e5f8493adaf26
         });
       },
       click: function(e) {
@@ -81,7 +65,32 @@ function createMap() {
               for (let data of qualityData) {
                   if (data.country === "Russia") { // Check for exact match
                       qualityScore = data.StandardOfLiving_QoLScoreNumbeo_2023MidYear || "Data not available";
-        }}}} else {
+                      break;
+        }}}} else if (countryname === "Turkiye") {
+          // Check if qualityData is an array and find the corresponding country
+                if (Array.isArray(qualityData)) {
+                  for (let data of qualityData) {
+                    if (data.country === "Turkey") { // Check for exact match
+                      qualityScore = data.StandardOfLiving_QoLScoreNumbeo_2023MidYear || "Data not available";
+                      break;
+        }}}}
+        else if (countryname === "Côte d'Ivoire") {
+          // Check if qualityData is an array and find the corresponding country
+                if (Array.isArray(qualityData)) {
+                  for (let data of qualityData) {
+                    if (data.country === "Ivory Coast") { // Check for exact match
+                      qualityScore = data.StandardOfLiving_QoLScoreNumbeo_2023MidYear || "Data not available";
+                      break;
+        }}}}
+        else if (countryname === "Congo DRC") {
+          // Check if qualityData is an array and find the corresponding country
+                if (Array.isArray(qualityData)) {
+                  for (let data of qualityData) {
+                    if (data.country === "DR Congo") { // Check for exact match
+                      qualityScore = data.StandardOfLiving_QoLScoreNumbeo_2023MidYear || "Data not available";
+                      break;
+        }}}}
+          else {
           // Check if qualityData is an array and find the corresponding country
           if (Array.isArray(qualityData)) {
           for (let data of qualityData) {
@@ -246,7 +255,3 @@ d3.select("#countrySelect").on("change", function() {
 createMap();
 // Initialize the dashboard
 init();
-<<<<<<< HEAD
-=======
-
->>>>>>> 5cd7506c2d4b7c9f5894e53aa49e5f8493adaf26
