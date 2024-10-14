@@ -7,7 +7,7 @@ function createMap() {
 
   // Add OpenStreetMap tile layer
   let streetmap = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    maxZoom: 4,
+    maxZoom: 8,
     attribution: '© OpenStreetMap contributors'
   }).addTo(map);
 
@@ -65,7 +65,32 @@ function createMap() {
               for (let data of qualityData) {
                   if (data.country === "Russia") { // Check for exact match
                       qualityScore = data.StandardOfLiving_QoLScoreNumbeo_2023MidYear || "Data not available";
-        }}}} else {
+                      break;
+        }}}} else if (countryname === "Turkiye") {
+          // Check if qualityData is an array and find the corresponding country
+                if (Array.isArray(qualityData)) {
+                  for (let data of qualityData) {
+                    if (data.country === "Turkey") { // Check for exact match
+                      qualityScore = data.StandardOfLiving_QoLScoreNumbeo_2023MidYear || "Data not available";
+                      break;
+        }}}}
+        else if (countryname === "Côte d'Ivoire") {
+          // Check if qualityData is an array and find the corresponding country
+                if (Array.isArray(qualityData)) {
+                  for (let data of qualityData) {
+                    if (data.country === "Ivory Coast") { // Check for exact match
+                      qualityScore = data.StandardOfLiving_QoLScoreNumbeo_2023MidYear || "Data not available";
+                      break;
+        }}}}
+        else if (countryname === "Congo DRC") {
+          // Check if qualityData is an array and find the corresponding country
+                if (Array.isArray(qualityData)) {
+                  for (let data of qualityData) {
+                    if (data.country === "DR Congo") { // Check for exact match
+                      qualityScore = data.StandardOfLiving_QoLScoreNumbeo_2023MidYear || "Data not available";
+                      break;
+        }}}}
+          else {
           // Check if qualityData is an array and find the corresponding country
           if (Array.isArray(qualityData)) {
           for (let data of qualityData) {
@@ -230,4 +255,3 @@ d3.select("#countrySelect").on("change", function() {
 createMap();
 // Initialize the dashboard
 init();
-
