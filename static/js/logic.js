@@ -184,7 +184,7 @@ function init() {
         });
 
         // Load the GeoJSON data and apply the heatmap
-        fetch('../Resources/World_Countries_(Generalized)_9029012925078512962.geojson')
+        fetch('..Resources/World_Countries_(Generalized)_9029012925078512962.geojson')
             .then(response => response.json())
             .then(geoData => {
                 loadGeoJSON(geoData, data);  // Apply heatmap based on initial data
