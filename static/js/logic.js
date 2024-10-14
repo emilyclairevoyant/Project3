@@ -116,30 +116,30 @@ function loadGeoJSON(data, countryData, selectedCountry = null) {
         };
     }
 
-    // Remove previous layer
-    if (geojsonLayer) {
-        map.removeLayer(geojsonLayer);
-    }
+    // // Remove previous layer
+    // if (geojsonLayer) {
+    //     map.removeLayer(geojsonLayer);
+    // }
 
-    // Add GeoJSON layer with the new data and style
-    geojsonLayer = L.geoJSON(data, {
-        style: style,
-        onEachFeature: function (feature, layer) {
-            let country = feature.properties.name;
-            let countryInfo = countryData.find(d => d['Country Name'] === country);
-            let qol = countryInfo && countryInfo['Quality of Life  '] !== undefined 
-                ? countryInfo['Quality of Life  '] 
-                : 'N/A';
+    // // Add GeoJSON layer with the new data and style
+    // geojsonLayer = L.geoJSON(data, {
+    //     style: style,
+    //     onEachFeature: function (feature, layer) {
+    //         let country = feature.properties.name;
+    //         let countryInfo = countryData.find(d => d['Country Name'] === country);
+    //         let qol = countryInfo && countryInfo['Quality of Life  '] !== undefined 
+    //             ? countryInfo['Quality of Life  '] 
+    //             : 'N/A';
 
-            layer.bindPopup(`${country}<br>Quality of Life: ${qol}`);
-        }
-    }).addTo(map);
+    //         layer.bindPopup(`${country}<br>Quality of Life: ${qol}`);
+    //     }
+    // }).addTo(map);
 
-    // If a specific country is selected, fit the map bounds to that country
-    if (selectedCountry) {
-        let bounds = geojsonLayer.getBounds();
-        map.fitBounds(bounds);  // Zoom to the selected country
-    }
+    // // If a specific country is selected, fit the map bounds to that country
+    // if (selectedCountry) {
+    //     let bounds = geojsonLayer.getBounds();
+    //     map.fitBounds(bounds);  // Zoom to the selected country
+    // }
 }
 
 // Function to initialize dropdown and summary info
@@ -149,7 +149,7 @@ function init() {
     // Retrieve summary info
     d3.json('http://127.0.0.1:5000/summary_info').then((data) => {
         // Extract country names
-        let countryNames = data.map(d => d['Country Name']); // Assuming 'Country Name' is the field
+        let countryNames = data.map(d => d['Country Name']); 
 
         // Populate the dropdown menu with country names
         countryNames.forEach((country) => {
@@ -226,6 +226,7 @@ d3.select("#countrySelect").on("change", function() {
     updateSummaryInfo(selectedCountry);
 });
 
+// run create map function
 createMap();
 // Initialize the dashboard
 init();
