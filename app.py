@@ -12,6 +12,7 @@ collection_2019 = db['data_2019']
 collection_consolidated = db['consolidated_data']
 collection_peace_security = db['peace_and_security']
 collection_summary_info = db['summary_info']
+collection_data_2022 = db['data_2022']
 
 @app.route('/data_2019', methods=['GET'])
 def fetch_data():
@@ -50,6 +51,16 @@ def fetch_summary_info():
         for item in data_summary_info:
             item['_id'] = str(item['_id'])
         return jsonify(data_summary_info)
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+    
+@app.route('/parameters', methods=['GET'])
+def fetch_parameters():
+    try:
+        data_parameters = list(collection_data_2022.find())
+        for item in data_parameters:
+            item['_id'] = str(item['_id'])
+        return jsonify(data_parameters)
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
