@@ -35,27 +35,52 @@ function createMap() {
         onEachFeature(feature, layer, qualityData);
       },
       style: function(feature) {
-        return { color: 'yellowgreen', fillOpacity: 0.0 }; // Initial style
+        // return { color: 'yellowgreen', fillOpacity: 0.0 }; // Initial style
+        let countryName = feature.properties.COUNTRY;
+        let qualityScore = qualityData.find(q => q.country === countryName)?.StandardOfLiving_QoLScoreNumbeo_2023MidYear;
+
+        // Define a color scale based on qualityScore
+        // TEAM: CHANGE DEFINING CRITERIA MAYBE?
+        let fillColor;
+        if (qualityScore > 150) {
+          fillColor = 'green';
+        } else if (qualityScore > 100) {
+          fillColor = 'yellow';
+        } else if (qualityScore > 50) {
+          fillColor = 'orange';
+        } else if (qualityScore > 0) {
+          fillColor = 'red';
+        } else {
+          fillColor = 'grey';
+        }
+
+        return {
+          color: 'black',
+          weight: 1,
+          fillColor: fillColor,
+          fillOpacity: 0.25
+        };
       }
     }).addTo(map);
-  });
+  })
 
   function onEachFeature(feature, layer, qualityData) {
+    // define fill color conditional?
+
     // Highlight the feature on mouseover
     layer.on({
       mouseover: function(e) {
         layer.setStyle({
-          fillOpacity: 0.5 // Change opacity to highlight
+          fillOpacity: 0.7, // Change opacity to highlight
         });
         layer.bringToFront(); // Bring the layer to the front
       },
       mouseout: function(e) {
         layer.setStyle({
-          fillOpacity: 0.0 // Reset opacity
+          fillOpacity: 0.25, // Reset opacity
         });
       },
       click: function(e) {
-        // Country name
         let countryname = feature.properties.COUNTRY;
         let qualityScore = "Data not available"; // Default value
 
@@ -67,7 +92,6 @@ function createMap() {
                       qualityScore = data.StandardOfLiving_QoLScoreNumbeo_2023MidYear || "Data not available";
                       break;
         }}}} else if (countryname === "Turkiye") {
-          // Check if qualityData is an array and find the corresponding country
                 if (Array.isArray(qualityData)) {
                   for (let data of qualityData) {
                     if (data.country === "Turkey") { // Check for exact match
@@ -75,7 +99,6 @@ function createMap() {
                       break;
         }}}}
         else if (countryname === "Côte d'Ivoire") {
-          // Check if qualityData is an array and find the corresponding country
                 if (Array.isArray(qualityData)) {
                   for (let data of qualityData) {
                     if (data.country === "Ivory Coast") { // Check for exact match
@@ -83,7 +106,6 @@ function createMap() {
                       break;
         }}}}
         else if (countryname === "Congo DRC") {
-          // Check if qualityData is an array and find the corresponding country
                 if (Array.isArray(qualityData)) {
                   for (let data of qualityData) {
                     if (data.country === "DR Congo") { // Check for exact match
@@ -91,7 +113,6 @@ function createMap() {
                       break;
         }}}}
           else {
-          // Check if qualityData is an array and find the corresponding country
           if (Array.isArray(qualityData)) {
           for (let data of qualityData) {
             if (data.country === countryname) {
@@ -105,67 +126,6 @@ function createMap() {
       }
   })}});}
 
-let geojsonLayer;
-
-// Load GeoJSON Data and create a heatmap based on Quality of Life Index
-function loadGeoJSON(data, countryData, selectedCountry = null) {
-    // Define color based on Quality of Life Index
-    function getColor(qol) {
-        return qol > 180 ? '#006837' :
-               qol > 150 ? '#31a354' :
-               qol > 120 ? '#78c679' :
-               qol > 90 ? '#c2e699' :
-               qol > 60 ? '#ffffcc' :
-                          '#ffeda0';
-    }
-
-    // Define a style function based on Quality of Life Index
-    function style(feature) {
-        let country = feature.properties.name;
-        let countryInfo = countryData.find(d => d['Country Name'] === country);
-        let qol = countryInfo && countryInfo['Quality of Life  '] !== undefined 
-            ? countryInfo['Quality of Life  '] 
-            : 0;  // Default to 0 if not available
-
-        if (selectedCountry && country !== selectedCountry) {
-            return { fillOpacity: 0 }; // Hide countries not selected
-        }
-
-        return {
-            fillColor: getColor(qol),
-            weight: 2,
-            opacity: 1,
-            color: 'white',
-            dashArray: '3',
-            fillOpacity: 0.7
-        };
-    }
-
-    // // Remove previous layer
-    // if (geojsonLayer) {
-    //     map.removeLayer(geojsonLayer);
-    // }
-
-    // // Add GeoJSON layer with the new data and style
-    // geojsonLayer = L.geoJSON(data, {
-    //     style: style,
-    //     onEachFeature: function (feature, layer) {
-    //         let country = feature.properties.name;
-    //         let countryInfo = countryData.find(d => d['Country Name'] === country);
-    //         let qol = countryInfo && countryInfo['Quality of Life  '] !== undefined 
-    //             ? countryInfo['Quality of Life  '] 
-    //             : 'N/A';
-
-    //         layer.bindPopup(`${country}<br>Quality of Life: ${qol}`);
-    //     }
-    // }).addTo(map);
-
-    // // If a specific country is selected, fit the map bounds to that country
-    // if (selectedCountry) {
-    //     let bounds = geojsonLayer.getBounds();
-    //     map.fitBounds(bounds);  // Zoom to the selected country
-    // }
-}
 
 // Function to initialize dropdown and summary info
 function init() {
@@ -183,11 +143,13 @@ function init() {
                 .property("value", country);
         });
 
-        // Load the GeoJSON data and apply the heatmap
-        fetch('..Resources/World_Countries_(Generalized)_9029012925078512962.geojson')
+        // Load the GeoJSON data & update summary 
+        // & apply the heatmap
+        let geolink = "../Resources/World_Countries_(Generalized)_9029012925078512962.geojson";
+        fetch(geolink)
             .then(response => response.json())
-            .then(geoData => {
-                loadGeoJSON(geoData, data);  // Apply heatmap based on initial data
+            .then(geodata => {
+                // heatmap(geodata, data);  // Apply heatmap based on initial data
                 // Initialize dashboard with the first country in the list
                 let firstCountry = countryNames[0];
                 updateSummaryInfo(firstCountry);  // Display the first country's data
@@ -199,16 +161,16 @@ function init() {
             }
             return response.json();
         })
-        .then(geoData => {
-            loadGeoJSON(geoData, data);
+        .then(geodata => {
+            // heatmap(geodata, data);
             let firstCountry = countryNames[0];
             updateSummaryInfo(firstCountry);
         })
         .catch(error => {
             console.error('There has been a problem with your fetch operation:', error);
         }); 
-    });
-}
+    // });
+    })}
 
 // Function to update summary info based on selected country
 function updateSummaryInfo(country) {
@@ -233,14 +195,6 @@ function updateSummaryInfo(country) {
             .append("p").text(`Population: ${selectedCountryData['Population']}`)
             .append("p").text(`Quality of Life (Numbeo 2023): ${qualityOfLife}`)
             .append("p").text(`Rank: ${rank}`);
-
-    //     // Update map for the selected country
-    //     fetch('../Resources/World_Countries_(Generalized)_9029012925078512962.geojson')
-    //         .then(response => response.json())
-    //         .then(geoData => {
-    //             loadGeoJSON(geoData, data, country);  // Reapply heatmap for the selected country
-    //         });
-    // });
 })}
 
 // Event listener for dropdown change
@@ -250,6 +204,7 @@ d3.select("#countrySelect").on("change", function() {
     // Update summary info and map when the country changes
     updateSummaryInfo(selectedCountry);
 });
+
 
 // run create map function
 createMap();
