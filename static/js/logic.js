@@ -48,6 +48,8 @@ function createMap() {
           fillColor = 'yellow';
         } else if (qualityScore > 50) {
           fillColor = 'orange';
+        } else if (qualityScore > 0) {
+          fillColor = 'red';
         } else {
           fillColor = 'grey';
         }
@@ -56,7 +58,7 @@ function createMap() {
           color: 'black',
           weight: 1,
           fillColor: fillColor,
-          fillOpacity: 0.2
+          fillOpacity: 0.25
         };
       }
     }).addTo(map);
@@ -69,13 +71,13 @@ function createMap() {
     layer.on({
       mouseover: function(e) {
         layer.setStyle({
-          fillOpacity: 0.5, // Change opacity to highlight
+          fillOpacity: 0.7, // Change opacity to highlight
         });
         layer.bringToFront(); // Bring the layer to the front
       },
       mouseout: function(e) {
         layer.setStyle({
-          fillOpacity: 0.2, // Reset opacity
+          fillOpacity: 0.25, // Reset opacity
         });
       },
       click: function(e) {
