@@ -12,11 +12,7 @@ collection_2019 = db['data_2019']
 collection_consolidated = db['consolidated_data']
 collection_peace_security = db['peace_and_security']
 collection_summary_info = db['summary_info']
-<<<<<<< HEAD
 collection_data_2022 = db['data_2022']
-=======
-collection_2022
->>>>>>> 7ce5846 (pulling new app.py)
 
 @app.route('/data_2019', methods=['GET'])
 def fetch_data():
@@ -75,4 +71,4 @@ def home():
     return render_template('index.html')  
 
 if __name__ == '__main__':
-    app.run(port=5001, debug=True)
+    app.run(debug=True)
