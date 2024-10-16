@@ -1,47 +1,79 @@
-// Get the chart container and the country select elements
+var data;
 var container = document.getElementById('container');
-var countrySelect = document.getElementById('country-select');
 
-// Populate the country select with the countries from our data
-for (var country in data) {
-    var option = document.createElement('option');
-    option.value = country;
-    option.text = country;
-    countrySelect.appendChild(option);
-}
+Promise.all([
+    d3.csv('../resources/2018_data.csv'),
+    d3.csv('../resources/2019_data.csv'),
+    d3.csv('../resources/2020_data.csv'),
+    d3.csv('../resources/2021_data.csv'),
+    d3.csv('../resources/2022_data.csv')
+]).then(dataArrays => {
+    // Process the data arrays into an object with keys for each country
+    data = {};
+    dataArrays.forEach(array => {
+        array.forEach(item => {
+            var country = item['Country Name'];
+            if (!data.hasOwnProperty(country)) {
+                data[country] = [];
+            }
+            data[country].push(item);
+        });
+    });
+}) // Close the Promise.all block
+.catch(error => {
+    console.error('Error:', error);
+}); 
 
-// Create the chart
-var chart = Highcharts.chart(container, {
-    title: {
-        text: 'My chart'
-    },
-    xAxis: {
-        categories: ['Year 1', 'Year 2', 'Year 3', 'Year 4', 'Year 5']
-    },
-    series: []
-});
+function createChart(containerId, title, categories, data) {
+    console.log('Creating chart with:');
+    console.log('containerId:', containerId);
+    console.log('title:', title);
+    console.log('categories:', categories);
+    console.log('data:', data);
 
-// Function to update the chart
-function updateChart() {
-    // Get the selected country
+    Highcharts.chart(containerId, {
+        title: {
+            text: title
+        },
+        xAxis: {
+            categories: categories
+        },
+        series: [{
+            name: title,
+            data: data
+        }]
+    });
+} // Close the createChart function
+
+var containerIds = ['visualization1', 'visualization2', 'visualization3', 'visualization4', 'visualization5'];
+
+function updateCharts() {
     var country = countrySelect.value;
 
-    // Remove all series from the chart
-    while (chart.series.length > 0) {
-        chart.series[0].remove();
-    }
+    console.log(country);  // Print out the value of country
+    console.log(Object.keys(data));  // Print out the keys of data
+    console.log(data.hasOwnProperty(country));  // Check if country is a key in data
 
-    // Add a series for each indicator of the selected country
+    // Remove all existing charts
+    containerIds.forEach(id => {
+        var container = document.getElementById(id);
+        while (container.firstChild) {
+            container.firstChild.remove();
+        }5
+    });
+
+    // Create a new chart for each indicator
+    var i = 0;
     for (var indicator in data[country]) {
-        chart.addSeries({
-            name: indicator,
-            data: data[country][indicator]
-        });
+        if (i >= containerIds.length) {
+            break;  // Don't create more charts than there are containers
+        }
+
+        var containerId = containerIds[i];
+        createChart(containerId, indicator, ['2018', '2019', '2020', '2021', '2022'], data[country][indicator]);
+        i++;
     }
-}
+} // Close the updateCharts function
 
-// Update the chart when the selected country changes
-countrySelect.addEventListener('change', updateChart);
-
-// Update the chart initially
-updateChart();
+// Update the charts initially
+updateCharts();
