@@ -1,68 +1,167 @@
-// Initialize the map
-const map = L.map('map').setView([20, 0], 2); // Centered on the world
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 18 }).addTo(map);
+function createMap() {
+// Create the map object with options.
+  let map = L.map('map', {
+    center: [20, 0], 
+    zoom: 1.5
+  });
 
-let geojsonLayer;
+  // Add OpenStreetMap tile layer
+  let streetmap = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 8,
+    attribution: '© OpenStreetMap contributors'
+  }).addTo(map);
 
-// Load GeoJSON Data and create a heatmap based on Quality of Life Index
-function loadGeoJSON(data, countryData, selectedCountry = null) {
-    // Define color based on Quality of Life Index
-    function getColor(qol) {
-        return qol > 180 ? '#006837' :
-               qol > 150 ? '#31a354' :
-               qol > 120 ? '#78c679' :
-               qol > 90 ? '#c2e699' :
-               qol > 60 ? '#ffffcc' :
-                          '#ffeda0';
-    }
+  // Create a baseMaps object to hold the streetmap layer.
+  let baseMaps = {
+    "Street Map": streetmap
+  };
 
-    // Define a style function based on Quality of Life Index
-    function style(feature) {
-        let country = feature.properties.name;
-        let countryInfo = countryData.find(d => d['Country Name'] === country);
-        let qol = countryInfo && countryInfo['Quality of Life  '] !== undefined 
-            ? countryInfo['Quality of Life  '] 
-            : 0;  // Default to 0 if not available
+  // Create a layer control, and pass it baseMaps and overlayMaps. Add the layer control to the map.
+  L.control.layers(baseMaps, {}, {
+    collapsed: false
+  }).addTo(map);
 
-        if (selectedCountry && country !== selectedCountry) {
-            return { fillOpacity: 0 }; // Hide countries not selected
+  // Load GeoJSON data
+  // let geolink = "../Resources/World_Countries_(Generalized)_9029012925078512962.geojson";
+  d3.json("http://127.0.0.1:5000/geo_json").then(function(geodata) {
+    // let geolink = "http://127.0.0.1:5000/countries"; //remove?
+  // d3.json(geolink).then(function(geodata) {
+    console.log(geodata);
+    // CALL qual of life JSON
+    // let qualityOfLifeLink = "../Resources/standard-of-living-by-country-_-quality-of-life-by-country-2024.json";
+    // d3.json('qualityOfLifeLink').then(function(qualityData) {
+      d3.json('http://127.0.0.1:5000/summary_info').then(function(qualityData) {
+      console.log(qualityData);
+    // Creating a GeoJSON layer with the retrieved data
+    L.geoJson(geodata, {
+      onEachFeature: function(feature, layer) {
+        onEachFeature(feature, layer, qualityData);
+      },
+      style: function(feature) {
+        let countryname = feature.properties.COUNTRY;
+        let selectedCountryData = qualityData.find(item => item['Country Name'] === countryname);
+        let qualityScore = selectedCountryData ? selectedCountryData['Quality of Life  '] : 0;
+    
+        let fillColor;
+        if (qualityScore > 150) {
+            fillColor = 'green';
+        } else if (qualityScore > 100) {
+            fillColor = 'yellow';
+        } else if (qualityScore > 50) {
+            fillColor = 'orange';
+        } else if (qualityScore > 0) {
+            fillColor = 'red';
+        } else {
+            fillColor = 'grey'; // Default case
         }
-
+    
         return {
-            fillColor: getColor(qol),
-            weight: 2,
-            opacity: 1,
-            color: 'white',
-            dashArray: '3',
-            fillOpacity: 0.7
+            color: 'black',
+            weight: 1,
+            fillColor: fillColor,
+            fillOpacity: 0.4
         };
     }
+      }).addTo(map);
 
-    // Remove previous layer
-    if (geojsonLayer) {
-        map.removeLayer(geojsonLayer);
+      createLegend();
+    })})
+
+
+    function createLegend() {
+      let legend = L.control({ position: 'bottomright' });
+
+      legend.onAdd = function () {
+          let div = L.DomUtil.create('div', 'info legend');
+  
+          // Title for the legend
+          const title = document.createElement('strong');
+          title.innerHTML = 'Quality of Life Score';
+          title.style.marginBottom = '5px'; // Space between title and gradient
+          div.appendChild(title);
+  
+          // Create a gradient background for the legend
+          const gradientDiv = document.createElement('div');
+          gradientDiv.style.background = 'linear-gradient(to right, green, yellow, orange, red, grey)';
+          gradientDiv.style.height = '20px'; // Height of the gradient bar
+          gradientDiv.style.border = '1px solid #ccc'; // Optional: add a border
+          gradientDiv.style.width = '200px'; // Width of the gradient bar
+          div.appendChild(gradientDiv);
+  
+          // Add labels for the legend
+          let grades = [0, 50, 100, 150];
+          let labels = [];
+  
+          // Create labels for the grades
+          for (let i = 0; i < grades.length; i++) {
+              // Determine the color for the label
+              let color;
+              if (grades[i] === 0) {
+                  color = 'red';
+              } else if (grades[i] <= 50) {
+                  color = 'orange';
+              } else if (grades[i] <= 100) {
+                  color = 'yellow';
+              } else if (grades[i] <= 150) {
+                  color = 'green';
+              } else {
+                  color = 'grey';
+              }
+  
+              labels.push(
+                  `<div style="display: flex; align-items: center;">
+                      <div style="background:${color}; width: 15px; height: 15px; margin-right: 5px;"></div>
+                      <span>${grades[i]}${grades[i + 1] ? ' &ndash; ' + grades[i + 1] : '+'}</span>
+                  </div>`
+              );
+          }
+  
+          div.innerHTML += labels.join('');
+          return div;
+      };
+  
+      legend.addTo(map);
     }
 
-    // Add GeoJSON layer with the new data and style
-    geojsonLayer = L.geoJSON(data, {
-        style: style,
-        onEachFeature: function (feature, layer) {
-            let country = feature.properties.name;
-            let countryInfo = countryData.find(d => d['Country Name'] === country);
-            let qol = countryInfo && countryInfo['Quality of Life  '] !== undefined 
-                ? countryInfo['Quality of Life  '] 
-                : 'N/A';
+  function onEachFeature(feature, layer, qualityData) {
+    // Highlight the feature on mouseover
+    layer.on({
+      mouseover: function(e) {
+        layer.setStyle({
+          fillOpacity: 0.7, // Change opacity to highlight
+        });
+        layer.bringToFront(); // Bring the layer to the front
+      },
+      mouseout: function(e) {
+        layer.setStyle({
+          fillOpacity: 0.4, // Reset opacity
+        });
+      },
+      click: function(e) {
+        let countryname = feature.properties.COUNTRY;
+        let qualityScore = "Data not available"; // Default value
 
-            layer.bindPopup(`${country}<br>Quality of Life: ${qol}`);
+       // Handle specific country name discrepancies
+       if (countryname === "Russian Federation") {
+        qualityScore = qualityData.find(item => item['Country Name'] === "Russia")?.['Quality of Life  '] || "Data not available";
+    } else if (countryname === "Turkiye") {
+        qualityScore = qualityData.find(item => item['Country Name'] === "Turkey")?.['Quality of Life  '] || "Data not available";
+    } else if (countryname === "Côte d'Ivoire") {
+        qualityScore = qualityData.find(item => item['Country Name'] === "Ivory Coast")?.['Quality of Life  '] || "Data not available";
+    } else if (countryname === "Congo DRC") {
+        qualityScore = qualityData.find(item => item['Country Name'] === "DR Congo")?.['Quality of Life  '] || "Data not available";
+    } else {
+        // General case: match country names directly
+        let selectedCountryData = qualityData.find(item => item['Country Name'] === countryname);
+        if (selectedCountryData) {
+            qualityScore = selectedCountryData['Quality of Life  ']|| "Data not available";
         }
-    }).addTo(map);
-
-    // If a specific country is selected, fit the map bounds to that country
-    if (selectedCountry) {
-        let bounds = geojsonLayer.getBounds();
-        map.fitBounds(bounds);  // Zoom to the selected country
     }
-}
+        // Bind a popup to show information when clicked
+        layer.bindPopup("Country: " + countryname + "<br>Quality of Life Score: " + qualityScore).openPopup();
+      }
+  });}}
+
 
 // Function to initialize dropdown and summary info
 function init() {
@@ -71,7 +170,7 @@ function init() {
     // Retrieve summary info
     d3.json('http://127.0.0.1:5000/summary_info').then((data) => {
         // Extract country names
-        let countryNames = data.map(d => d['Country Name']); // Assuming 'Country Name' is the field
+        let countryNames = data.map(d => d['Country Name']); 
 
         // Populate the dropdown menu with country names
         countryNames.forEach((country) => {
@@ -80,39 +179,34 @@ function init() {
                 .property("value", country);
         });
 
-        // Load the GeoJSON data and apply the heatmap
-        fetch('../Resources/World_Countries_(Generalized)_9029012925078512962.geojson')
+        // Load the GeoJSON data & update summary 
+        // & apply the heatmap
+        // let geolink = "../Resources/World_Countries_(Generalized)_9029012925078512962.geojson";
+        d3.json("http://127.0.0.1:5000/geo_json").then(function(geodata) {
+          let geolink = 'http://127.0.0.1:5000/geo_json';
+        fetch(geolink)
             .then(response => response.json())
-            .then(geoData => {
-                loadGeoJSON(geoData, data);  // Apply heatmap based on initial data
+            .then(geodata => {
                 // Initialize dashboard with the first country in the list
                 let firstCountry = countryNames[0];
                 updateSummaryInfo(firstCountry);  // Display the first country's data
             });
-    });
-
-    
-    const infra_button = document.getElementById('infrastructure');
-    infrastructure.addEventListener('click', () => {
-    fetch('/infrasturcture')
-        .then(response => response.json())
-        .then(data => {
-            // Handle the response data
-            console.log(data);
-        });
-});
-const peace_security_button = document.getElementById('peace_security');
-peace_security.addEventListener('click', () => {
-    fetch('/peace_and_security')
-        .then(response => response.json())
-        .then(data => {
-            // Handle the response data
-            console.log(data);
-        });
-});
-}
-
-
+        fetch(geolink)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok ' + response.statusText);
+            }
+            return response.json();
+        })
+        .then(geodata => {
+            let firstCountry = countryNames[0];
+            updateSummaryInfo(firstCountry);
+        })
+        .catch(error => {
+            console.error('There has been a problem with your fetch operation:', error);
+        }); 
+    // });
+    })});}
 
 // Function to update summary info based on selected country
 function updateSummaryInfo(country) {
@@ -137,23 +231,19 @@ function updateSummaryInfo(country) {
             .append("p").text(`Population: ${selectedCountryData['Population']}`)
             .append("p").text(`Quality of Life (Numbeo 2023): ${qualityOfLife}`)
             .append("p").text(`Rank: ${rank}`);
-
-        // Update map for the selected country
-        fetch('../Resources/World_Countries_(Generalized)_9029012925078512962.geojson')
-            .then(response => response.json())
-            .then(geoData => {
-                loadGeoJSON(geoData, data, country);  // Reapply heatmap for the selected country
-            });
-    });
-}
+})}
 
 // Event listener for dropdown change
 d3.select("#countrySelect").on("change", function() {
     // Get the selected country
     const selectedCountry = d3.select(this).property("value");
-    // Update summary info and map when the country changes
+    // Update summary info when the country changes
     updateSummaryInfo(selectedCountry);
 });
 
+
+// run create map function
+createMap();
+// createLegend(); 
 // Initialize the dashboard
 init();
