@@ -99,6 +99,10 @@ def fetch_summary_info():
 def infrastructure():
     return render_template('infra_index.html')
 
+@app.route('/top_10_bottom_10')
+def top_10():
+    return render_template('top_10_bottom_10_countries.html')
+
 
 @app.route("/")
 def home():
