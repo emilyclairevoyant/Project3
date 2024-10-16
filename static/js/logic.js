@@ -59,7 +59,7 @@ function createMap() {
             color: 'black',
             weight: 1,
             fillColor: fillColor,
-            fillOpacity: 0.25
+            fillOpacity: 0.4
         };
     }
       }).addTo(map);
@@ -134,7 +134,7 @@ function createMap() {
       },
       mouseout: function(e) {
         layer.setStyle({
-          fillOpacity: 0.25, // Reset opacity
+          fillOpacity: 0.4, // Reset opacity
         });
       },
       click: function(e) {
