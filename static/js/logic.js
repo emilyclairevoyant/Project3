@@ -90,7 +90,29 @@ function init() {
                 updateSummaryInfo(firstCountry);  // Display the first country's data
             });
     });
+
+    
+    const infra_button = document.getElementById('infrastructure');
+    infrastructure.addEventListener('click', () => {
+    fetch('/infrasturcture')
+        .then(response => response.json())
+        .then(data => {
+            // Handle the response data
+            console.log(data);
+        });
+});
+const peace_security_button = document.getElementById('peace_security');
+peace_security.addEventListener('click', () => {
+    fetch('/peace_and_security')
+        .then(response => response.json())
+        .then(data => {
+            // Handle the response data
+            console.log(data);
+        });
+});
 }
+
+
 
 // Function to update summary info based on selected country
 function updateSummaryInfo(country) {
