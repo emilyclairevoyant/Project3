@@ -13,6 +13,7 @@ collection_consolidated = db['consolidated_data']
 collection_peace_security = db['peace_and_security']
 collection_summary_info = db['summary_info']
 collection_data_2022 = db['data_2022']
+collection_geojson = db['geojson']
 
 @app.route('/data_2019', methods=['GET'])
 def fetch_data():
@@ -64,7 +65,15 @@ def fetch_parameters():
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
-
+@app.route('/geo_json', methods=['GET'])
+def fetch_geo_json():
+    try:
+        data_geo_json = list(collection_geojson.find())
+        for item in data_geo_json:
+            item['_id'] = str(item['_id'])
+        return jsonify(data_geo_json)
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
 
 @app.route("/")
 def home():

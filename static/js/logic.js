@@ -22,12 +22,15 @@ function createMap() {
   }).addTo(map);
 
   // Load GeoJSON data
-  let geolink = "../Resources/World_Countries_(Generalized)_9029012925078512962.geojson";
-  // let link = "/Resources/countries-land-5km.geojson";
-  d3.json(geolink).then(function(geodata) {
-    console.log(geodata)
-    let qualityOfLifeLink = "../Resources/standard-of-living-by-country-_-quality-of-life-by-country-2024.json";
-    d3.json(qualityOfLifeLink).then(function(qualityData) {
+  // let geolink = "../Resources/World_Countries_(Generalized)_9029012925078512962.geojson";
+  d3.json("http://127.0.0.1:5000/geo_json").then(function(geodata) {
+    // let geolink = "http://127.0.0.1:5000/countries"; //remove?
+  // d3.json(geolink).then(function(geodata) {
+    console.log(geodata);
+    // CALL qual of life JSON
+    // let qualityOfLifeLink = "../Resources/standard-of-living-by-country-_-quality-of-life-by-country-2024.json";
+    // d3.json('qualityOfLifeLink').then(function(qualityData) {
+      d3.json('http://127.0.0.1:5000/summary_info').then(function(qualityData) {
       console.log(qualityData);
     // Creating a GeoJSON layer with the retrieved data
     L.geoJson(geodata, {
@@ -35,38 +38,34 @@ function createMap() {
         onEachFeature(feature, layer, qualityData);
       },
       style: function(feature) {
-        // return { color: 'yellowgreen', fillOpacity: 0.0 }; // Initial style
-        let countryName = feature.properties.COUNTRY;
-        let qualityScore = qualityData.find(q => q.country === countryName)?.StandardOfLiving_QoLScoreNumbeo_2023MidYear;
-
-        // Define a color scale based on qualityScore
-        // TEAM: CHANGE DEFINING CRITERIA MAYBE?
+        let countryname = feature.properties.COUNTRY;
+        let selectedCountryData = qualityData.find(item => item['Country Name'] === countryname);
+        let qualityScore = selectedCountryData ? selectedCountryData['Quality of Life  '] : 0;
+    
         let fillColor;
         if (qualityScore > 150) {
-          fillColor = 'green';
+            fillColor = 'green';
         } else if (qualityScore > 100) {
-          fillColor = 'yellow';
+            fillColor = 'yellow';
         } else if (qualityScore > 50) {
-          fillColor = 'orange';
+            fillColor = 'orange';
         } else if (qualityScore > 0) {
-          fillColor = 'red';
+            fillColor = 'red';
         } else {
-          fillColor = 'grey';
+            fillColor = 'grey'; // Default case
         }
-
+    
         return {
-          color: 'black',
-          weight: 1,
-          fillColor: fillColor,
-          fillOpacity: 0.25
+            color: 'black',
+            weight: 1,
+            fillColor: fillColor,
+            fillOpacity: 0.25
         };
-      }
-    }).addTo(map);
-  })
+    }
+      }).addTo(map);})})
+  
 
   function onEachFeature(feature, layer, qualityData) {
-    // define fill color conditional?
-
     // Highlight the feature on mouseover
     layer.on({
       mouseover: function(e) {
@@ -84,47 +83,26 @@ function createMap() {
         let countryname = feature.properties.COUNTRY;
         let qualityScore = "Data not available"; // Default value
 
-        if (countryname === "Russian Federation") {
-          // Check if qualityData is an array and find the corresponding country
-          if (Array.isArray(qualityData)) {
-              for (let data of qualityData) {
-                  if (data.country === "Russia") { // Check for exact match
-                      qualityScore = data.StandardOfLiving_QoLScoreNumbeo_2023MidYear || "Data not available";
-                      break;
-        }}}} else if (countryname === "Turkiye") {
-                if (Array.isArray(qualityData)) {
-                  for (let data of qualityData) {
-                    if (data.country === "Turkey") { // Check for exact match
-                      qualityScore = data.StandardOfLiving_QoLScoreNumbeo_2023MidYear || "Data not available";
-                      break;
-        }}}}
-        else if (countryname === "Côte d'Ivoire") {
-                if (Array.isArray(qualityData)) {
-                  for (let data of qualityData) {
-                    if (data.country === "Ivory Coast") { // Check for exact match
-                      qualityScore = data.StandardOfLiving_QoLScoreNumbeo_2023MidYear || "Data not available";
-                      break;
-        }}}}
-        else if (countryname === "Congo DRC") {
-                if (Array.isArray(qualityData)) {
-                  for (let data of qualityData) {
-                    if (data.country === "DR Congo") { // Check for exact match
-                      qualityScore = data.StandardOfLiving_QoLScoreNumbeo_2023MidYear || "Data not available";
-                      break;
-        }}}}
-          else {
-          if (Array.isArray(qualityData)) {
-          for (let data of qualityData) {
-            if (data.country === countryname) {
-              qualityScore = data.StandardOfLiving_QoLScoreNumbeo_2023MidYear || "Data not available";
-              break; // Exit the loop once found
-            }
-          }
-        }}
+       // Handle specific country name discrepancies
+       if (countryname === "Russian Federation") {
+        qualityScore = qualityData.find(item => item['Country Name'] === "Russia")?.['Quality of Life  '] || "Data not available";
+    } else if (countryname === "Turkiye") {
+        qualityScore = qualityData.find(item => item['Country Name'] === "Turkey")?.['Quality of Life  '] || "Data not available";
+    } else if (countryname === "Côte d'Ivoire") {
+        qualityScore = qualityData.find(item => item['Country Name'] === "Ivory Coast")?.['Quality of Life  '] || "Data not available";
+    } else if (countryname === "Congo DRC") {
+        qualityScore = qualityData.find(item => item['Country Name'] === "DR Congo")?.['Quality of Life  '] || "Data not available";
+    } else {
+        // General case: match country names directly
+        let selectedCountryData = qualityData.find(item => item['Country Name'] === countryname);
+        if (selectedCountryData) {
+            qualityScore = selectedCountryData['Quality of Life  ']|| "Data not available";
+        }
+    }
         // Bind a popup to show information when clicked
         layer.bindPopup("Country: " + countryname + "<br>Quality of Life Score: " + qualityScore).openPopup();
       }
-  })}});}
+  });}}
 
 
 // Function to initialize dropdown and summary info
@@ -145,16 +123,17 @@ function init() {
 
         // Load the GeoJSON data & update summary 
         // & apply the heatmap
-        let geolink = "../Resources/World_Countries_(Generalized)_9029012925078512962.geojson";
+        // let geolink = "../Resources/World_Countries_(Generalized)_9029012925078512962.geojson";
+        d3.json("http://127.0.0.1:5000/geo_json").then(function(geodata) {
+          let geolink = 'http://127.0.0.1:5000/geo_json';
         fetch(geolink)
             .then(response => response.json())
             .then(geodata => {
-                // heatmap(geodata, data);  // Apply heatmap based on initial data
                 // Initialize dashboard with the first country in the list
                 let firstCountry = countryNames[0];
                 updateSummaryInfo(firstCountry);  // Display the first country's data
             });
-        fetch('../Resources/World_Countries_(Generalized)_9029012925078512962.geojson')
+        fetch(geolink)
         .then(response => {
             if (!response.ok) {
                 throw new Error('Network response was not ok ' + response.statusText);
@@ -162,7 +141,6 @@ function init() {
             return response.json();
         })
         .then(geodata => {
-            // heatmap(geodata, data);
             let firstCountry = countryNames[0];
             updateSummaryInfo(firstCountry);
         })
@@ -170,7 +148,7 @@ function init() {
             console.error('There has been a problem with your fetch operation:', error);
         }); 
     // });
-    })}
+    })});}
 
 // Function to update summary info based on selected country
 function updateSummaryInfo(country) {
@@ -201,7 +179,7 @@ function updateSummaryInfo(country) {
 d3.select("#countrySelect").on("change", function() {
     // Get the selected country
     const selectedCountry = d3.select(this).property("value");
-    // Update summary info and map when the country changes
+    // Update summary info when the country changes
     updateSummaryInfo(selectedCountry);
 });
 
