@@ -62,8 +62,66 @@ function createMap() {
             fillOpacity: 0.25
         };
     }
-      }).addTo(map);})})
+      }).addTo(map);
+
+      createLegend();
+    })})
+
+
+    function createLegend() {
+      let legend = L.control({ position: 'bottomright' });
+
+      legend.onAdd = function () {
+          let div = L.DomUtil.create('div', 'info legend');
   
+          // Title for the legend
+          const title = document.createElement('strong');
+          title.innerHTML = 'Quality of Life Score';
+          title.style.marginBottom = '5px'; // Space between title and gradient
+          div.appendChild(title);
+  
+          // Create a gradient background for the legend
+          const gradientDiv = document.createElement('div');
+          gradientDiv.style.background = 'linear-gradient(to right, green, yellow, orange, red, grey)';
+          gradientDiv.style.height = '20px'; // Height of the gradient bar
+          gradientDiv.style.border = '1px solid #ccc'; // Optional: add a border
+          gradientDiv.style.width = '200px'; // Width of the gradient bar
+          div.appendChild(gradientDiv);
+  
+          // Add labels for the legend
+          let grades = [0, 50, 100, 150];
+          let labels = [];
+  
+          // Create labels for the grades
+          for (let i = 0; i < grades.length; i++) {
+              // Determine the color for the label
+              let color;
+              if (grades[i] === 0) {
+                  color = 'red';
+              } else if (grades[i] <= 50) {
+                  color = 'orange';
+              } else if (grades[i] <= 100) {
+                  color = 'yellow';
+              } else if (grades[i] <= 150) {
+                  color = 'green';
+              } else {
+                  color = 'grey';
+              }
+  
+              labels.push(
+                  `<div style="display: flex; align-items: center;">
+                      <div style="background:${color}; width: 15px; height: 15px; margin-right: 5px;"></div>
+                      <span>${grades[i]}${grades[i + 1] ? ' &ndash; ' + grades[i + 1] : '+'}</span>
+                  </div>`
+              );
+          }
+  
+          div.innerHTML += labels.join('');
+          return div;
+      };
+  
+      legend.addTo(map);
+    }
 
   function onEachFeature(feature, layer, qualityData) {
     // Highlight the feature on mouseover
@@ -186,5 +244,6 @@ d3.select("#countrySelect").on("change", function() {
 
 // run create map function
 createMap();
+// createLegend(); 
 // Initialize the dashboard
 init();
