@@ -5,11 +5,36 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>World Quality of Life Dashboard</title>
+  <title>Parameters Dashboard</title>
+  
+  <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  
+  <!-- Leaflet CSS -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  
   <style>
-    #map { height: 600px; }
+    #map { 
+      height: 600px; 
+      position: relative; 
+    }
+    .info {
+      padding: 6px 8px;
+      background: white;
+      border-radius: 5px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.2);
+    }
+    .legend {
+      line-height: 18px;
+      color: #555;
+    }
+    .legend i {
+      width: 18px;
+      height: 18px;
+      float: left;
+      margin-right: 8px;
+      opacity: 0.7;
+    }
   </style>
 </head>
 
@@ -18,34 +43,33 @@
   <div class="container">
     <div class="row">
       <div class="col-md-12 p-5 text-center bg-light">
-        <h1>World Quality of Life Dashboard</h1>
-        <p>Use the interactive charts below to explore the dataset</p>
+        <h1>Parameters Dashboard</h1>
+        <p>Use the interactive charts below to explore the dataset.</p>
       </div>
     </div>
     <br>
+
     <div class="row">
       <div class="col-md-3">
         <div class="card card-body bg-light">
-          <h6>Select a Country:</h6>
-          <select id="countrySelect" onchange="optionChanged(this.value)"></select>
+          <h6>Select a parameter:</h6>
+          <select id="parameterSelect" class="form-select"></select>
         </div>
         <br>
-        <div class="card card-primary">
-          <div class="card-header">
-            <h4 class="card-title">Summary Info</h4>
-          </div>
-          <div id="summary-info" class="card-body"></div>
-        </div>
       </div>
+      
+      <!-- Map Container -->
       <div class="col-md-9">
-        <div id="map"></div>
+        <div id="map"></div> <!-- Added map element for Leaflet -->
       </div>
     </div>
   </div>
 
+  <!-- Scripts -->
   <script src="https://d3js.org/d3.v7.min.js"></script>
   <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-  <script src="./static/js/logic.js"></script>
+  <script src="../static/js/parameters.js"></script> <!-- Link to your JavaScript file -->
+
 </body>
 </html>
