@@ -105,3 +105,23 @@ It is important to note that while a majority of the data is accurate and source
 13. Bootstrap
 
 14. HTML
+
+## Dashboard Navigation
+Data rendered from python Flask API is used to visualize data on the web client. User can find the following features:
+
+Launch Page :
+
+Dropdown option to choose a country, a table of summary information and a geoJson map of the world with the Quality of Life Index Values is displayed This is built .
+with HTML, Bootstrap , JavaScript, Leaflet.js
+
+Country Selection:
+
+Select a country from the drop-down menu and the Summary Info table changes displaying the information about the country selected.
+
+Jquery.js is used to asynchronously render HTML elements for charts when a country is selected.
+
+Buttons:
+
+The launch page features buttons labeled with parameters, sub-parameters, and the top 10 and bottom 10 countries. Users can simply click on any button to access the corresponding dashboard.
+
+Home button: User can navigate back to the launch page via the home button on the respective dashboards.
