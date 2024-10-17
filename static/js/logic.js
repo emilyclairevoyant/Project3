@@ -22,20 +22,24 @@ function createMap() {
   }).addTo(map);
 
   // Load GeoJSON data
-  // let geolink = "../Resources/World_Countries_(Generalized)_9029012925078512962.geojson";
   d3.json("http://127.0.0.1:5000/geo_json").then(function(geodata) {
-    // let geolink = "http://127.0.0.1:5000/countries"; //remove?
-  // d3.json(geolink).then(function(geodata) {
     console.log(geodata);
-    // CALL qual of life JSON
-    // let qualityOfLifeLink = "../Resources/standard-of-living-by-country-_-quality-of-life-by-country-2024.json";
-    // d3.json('qualityOfLifeLink').then(function(qualityData) {
+    // country flags json
+    d3.json('http://127.0.0.1:5000/country_flags').then(function(flagssData) {
+    // qual of life JSON
       d3.json('http://127.0.0.1:5000/summary_info').then(function(qualityData) {
       console.log(qualityData);
+    
+    // Create a map of country names to their images
+    const flagMap = {};
+    flagssData.forEach(item => {
+        flagMap[item['country']] = item.flag_base64;
+    });
+    
     // Creating a GeoJSON layer with the retrieved data
     L.geoJson(geodata, {
       onEachFeature: function(feature, layer) {
-        onEachFeature(feature, layer, qualityData);
+        onEachFeature(feature, layer, qualityData, flagMap);
       },
       style: function(feature) {
         let countryname = feature.properties.COUNTRY;
@@ -123,7 +127,7 @@ function createMap() {
       legend.addTo(map);
     }
 
-  function onEachFeature(feature, layer, qualityData) {
+  function onEachFeature(feature, layer, qualityData, flagMap) {
     // Highlight the feature on mouseover
     layer.on({
       mouseover: function(e) {
@@ -140,6 +144,7 @@ function createMap() {
       click: function(e) {
         let countryname = feature.properties.COUNTRY;
         let qualityScore = "Data not available"; // Default value
+        let countryFlag = flagMap[countryname] || ""; // Get the flag image from the map
 
        // Handle specific country name discrepancies
        if (countryname === "Russian Federation") {
@@ -158,9 +163,16 @@ function createMap() {
         }
     }
         // Bind a popup to show information when clicked
-        layer.bindPopup("Country: " + countryname + "<br>Quality of Life Score: " + qualityScore).openPopup();
+        // layer.bindPopup("Country: " + countryname + "<br>Quality of Life Score: " + qualityScore).openPopup();
+        let popupContent = "Country: " + countryname + "<br>Quality of Life Score: " + qualityScore;
+            if (countryFlag) {
+                popupContent += "<br><img src='" + countryFlag + "' alt='" + countryname + " flag' style='width: 50px; height: auto;'>";
+            }
+
+            layer.bindPopup(popupContent).openPopup();
       }
   });}}
+)}
 
 
 // Function to initialize dropdown and summary info
@@ -180,8 +192,6 @@ function init() {
         });
 
         // Load the GeoJSON data & update summary 
-        // & apply the heatmap
-        // let geolink = "../Resources/World_Countries_(Generalized)_9029012925078512962.geojson";
         d3.json("http://127.0.0.1:5000/geo_json").then(function(geodata) {
           let geolink = 'http://127.0.0.1:5000/geo_json';
         fetch(geolink)

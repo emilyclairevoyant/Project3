@@ -14,6 +14,7 @@ collection_peace_security = db['peace_and_security']
 collection_summary_info = db['summary_info']
 collection_data_2022 = db['data_2022']
 collection_geojson = db['geojson']
+collection_country_flags = db['country_flags']
 
 @app.route('/data_2019', methods=['GET'])
 def fetch_data():
@@ -72,6 +73,16 @@ def fetch_geo_json():
         for item in data_geo_json:
             item['_id'] = str(item['_id'])
         return jsonify(data_geo_json)
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+    
+@app.route('/country_flags', methods=['GET'])
+def fetch_flag_data():
+    try:
+        data_flags = list(collection_country_flags.find())
+        for item in data_flags:
+            item['_id'] = str(item['_id'])
+        return jsonify(data_flags)
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
