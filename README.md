@@ -1,4 +1,6 @@
-# Project3
+# SafeMove Compass
+![https://activated.org/media/images/a-compass-for-lifes-journey.max-750x450.jpg](https://activated.org/media/images/a-compass-for-lifes-journey.max-750x450.jpg)
+
 ## An overview of the project and its purpose
 
 Whether going on vacation or planning a move, many individuals worry about their safety and happiness in their new location. Despite a plethora of information on the web – including various articles and videos – people can get overwhelmed when searching for answers on various aspects of the new country and keeping track of the newly acquired information. Not only can it be difficult to research, but a layperson can also find it difficult to understand the surveys and quality of life indexes they do find.
@@ -56,9 +58,8 @@ It is important to note that while a majority of the data is accurate and source
 - Gini index
 - Inflation, consumer prices (annual %)
 - Lending interest rate (%)
-- Multidimensional poverty headcount ratio (World Bank) (% of population)
-- 
-6. Peace and Security (polit stab, marg groups, etc)
+- Multidimensional poverty headcount ratio (World Bank) (% of population)  
+5. Peace and Security (polit stab, marg groups, etc)
 - Women making their own informed decisions regarding sexual relations, contraceptive use and reproductive health care (% of women age 15-49)
 - Political Stability and Absence of Violence/Terrorism: Estimate
 - Rule of Law: Estimate
@@ -70,9 +71,37 @@ It is important to note that while a majority of the data is accurate and source
 - Losses due to theft and vandalism (% of annual sales for affected firms)
 - Government Effectiveness: Estimate
 - Proportion of seats held by women in national parliaments (%)
-- Net migration
-7. Infrastructure 
+- Net migration  
+6. Infrastructure 
 - Mobile cellular subscriptions (per 100 people)
 - Access to electricity (% of population)
 - Individuals using the Internet (% of population)
 - Statistical performance indicators (SPI): Overall score (scale 0-100)
+
+## Tools and Technology Used
+
+1. JavaScript
+
+2. Plotly
+
+3. CanvaJS
+
+4. Highcharts
+  
+5. D3.js
+
+7. Leaflet/GeoJson
+
+8. Python
+
+9. Flask
+
+10. MongoDB Atlas
+
+11. Pandas
+
+12. CSS
+
+13. Bootstrap
+
+14. HTML
