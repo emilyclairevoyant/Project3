@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>About this Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  </head>
+
+  <body>
+
+<div id="about-dashboard" style="padding: 100px; border: 10px solid #4f95e6; background-color: #ffffff; border-radius: 5px; max-width: 1000px; margin: auto;">
+    <h1>About this Dashboard</h1>
+    <p>This dashboard provides an interactive visualization of the Quality of Life scores across various countries.</p>
+
+    <h3>An overview of the project and its purpose</h3>
+    <p> Whether going on vacation or planning a move, many individuals worry about their safety and happiness in their new location. 
+        Despite a plethora of information on the web – including various articles and videos – people can get overwhelmed when searching for answers 
+        on various aspects of the new country and keeping track of the newly acquired information. 
+        Not only can it be difficult to research, but a layperson can also find it difficult to understand the surveys and quality of life indexes they do find. </p>
+    <br>
+
+    <h3>Instructions on how to use and interact with the project</h3>
+    <p>Hover over a country on the map to view detailed data or select a country from the dropdown menu for quick access.</p>
+    <p> While exploring our dashboard, it is important that the user takes into consideration current global events and do more research 
+        on the country or countries of their choosing. 
+        While we utilized data that we all agreed would be most pertinent to determining quality of life, 
+        it is not necessarily representative of the current state of the world. 
+        We are only capable of visualizing data that is given to us, which ranges from years 2018-2022 due to availability of data provided, 
+        and so it is unfortunately not the most up to date representation of each country that we are looking at. </p>
+    <p>Users can explore country-specific information, including:</p>
+    <ul>
+        <li>Interactive Map and Summary Cards with Population, 
+            <br>Country Rank, and visual representation of quality of life score.</li>
+        <li>Quality of Life Score Parameters (ex. Family Friendliness)
+            <br> and visualizations based on parameter subcategories.</li>
+    </ul>
+    <br>
+
+    <h3>Ethics and Considerations</h3>
+    <p> Although our team put a lot of consideration into the data sources and parameters chosen to fuel this dashboard, it is important to note that data is not all inclusive
+        and what is deemed important for quality of life for each person may differ, as seen across quality of life dataset availble on the web. Some data was only as recent as 2022 or 2023,
+        and world events and tragedies may certainly change conditions in individual countries, leading to some differences in our dashboard data and potential current reports. 
+        It is also important to consider that we are aware each country and its citizens are trying to their best and may have differing access to
+    some resources that are counted as parameters for our dashboard. Please be sure to use our dashboard as a starting point to your research and be sure to use your own discretion. </p>
+    <br>
+
+    <h4> Breakdown of Parameter Categories and Sub-categories </h4>
+    <p> 1. Health</p>
+    <ul>
+        <li>Immunization, HepB3 (% of one-year-old children)</li>
+        <li>Immunization, DPT (% of children ages 12-23 months)</li>
+        <li>Current health expenditure (% of GDP)</li>
+        <li>Out-of-pocket expenditure (% of current health expenditure)</li>
+        <li>Immunization, measles (% of children ages 12-23 months)</li>
+        <li>Life expectancy at birth, total (years)</li>
+        <li>Survival to age 65, male (% of cohort)</li>
+        <li>Immunization, measles (% of children ages 12-23 months)</li>
+        <li>Survival to age 65, female (% of cohort)</li>
+    </ul>
+
+    <p> 2. Family Friendly</p>
+    <ul>
+        <li>Persistence to last grade of primary, total (% of cohort)</li>
+        <li>Share of youth not in education, employment or training, total (% of youth population)</li>
+        <li>Primary completion rate, total (% of relevant age group)</li>
+        <li>Literacy rate, adult total (% of people ages 15 and above)</li>
+        <li>Current education expenditure, total (% of total expenditure in public institutions)</li>
+    </ul>
+
+    <p> 3. Job Market</p>
+    <ul>
+        <li>Compensation of employees (current LCU)</li>
+        <li>Unemployment, total (% of total labor force) (national estimate)</li>
+        <li>Regulatory Quality: Estimate</li>
+    </ul>
+
+    <p> 4. Affordability</p>
+    <ul>
+        <li>Risk of impoverishing expenditure for surgical care (% of people at risk)</li>
+        <li>Gini index</li>
+        <li>Inflation, consumer prices (annual %)</li>
+        <li>Lending interest rate (%)</li>
+        <li>Multidimensional poverty headcount ratio (World Bank) (% of population)</li>
+    </ul>
+
+    <p> 5. Peace and Security</p>
+    <ul>
+        <li>Women making their own informed decisions regarding sexual relations, 
+            contraceptive use and reproductive health care (% of women age 15-49)</li>
+        <li>Political Stability and Absence of Violence/Terrorism: Estimate</li>
+        <li>Rule of Law: Estimate</li>
+        <li>Internally displaced persons, total displaced by conflict and violence (number of people)</li>
+        <li>Women participating in the three decisions (own health care, 
+            major household purchases, and visiting family) (% of women age 15-49)</li>
+        <li>Refugee population by country or territory of asylum</li>
+        <li>Voice and Accountability: Estimate</li>
+        <li>Control of Corruption: Estimate</li>
+        <li>Losses due to theft and vandalism (% of annual sales for affected firms)</li>
+        <li>Government Effectiveness: Estimate</li>
+        <li>Proportion of seats held by women in national parliaments (%)</li>
+        <li>Net migration</li>
+    </ul>
+
+    <p> 6. Infrastructure</p>
+    <ul>
+        <li>Mobile cellular subscriptions (per 100 people)</li>
+        <li>Access to electricity (% of population)</li>
+        <li>Individuals using the Internet (% of population)</li>
+        <li>Statistical performance indicators (SPI): Overall score (scale 0-100)</li>
+    </ul>
+    <br>
+
+    <h3>References for our data source(s)</h3>
+    <p>Our data is primarily sourced from the <a href="https://data.worldbank.org/indicator" target="_blank">World Bank's Data Catalog</a>. Indicators were selected based on which we thought best indicated quality of life.</p>
+    <p>Our GEOJSON for country names and coordinates was sourced from 
+        <a href="https://hub.arcgis.com/datasets/esri::world-countries-generalized/explore" target="_blank">ArcGIS Hub's World Countries Generalized Dataset</a> . </p>
+    <p>Our population for each country and the World Quality Index values data was from 
+        <a href= "https://worldpopulationreview.com/country-rankings/standard-of-living-by-country" target="_blank">World population review</a> . </p>
+    <p>Our information for flags was from 
+        <a href= "https://github.com/samayo/country-json/tree/master" target="_blank">Country JSON GitHub hosted by samayo</a>.</p>
+    <br>
+
+    <h3> Disclaimers & Code References </h3>
+    <p>It is important to note that while a majority of the data is accurate and sourced from World Bank, some data did have to be interpolated due to missing values.</p>
+    <p>By default Pandas utilizes linear interpolation, so the missing values were estimated as the median of the value above and below it in the respective data frames.</p>
+    <p>Some of the sources were provided to us by the source oweners themselves for educational purposes only (thank you ArcGIS Hub team)</p>
+    <br>
+
+    <h1> Thank You! </h1>
+    <p>If you have any questions or feedback, feel free to reach out to the Data Questers (you can find us on GitHub)!</p>
+<a class='btn btn-primary' href="/">Home
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.0/css/bootstrap.min.css" integrity="sha256-/ykJw/wDxMa0AQhHDYfuMEwVb4JHMx9h4jD4XvHqVzU=" crossorigin="anonymous" />
+        </a>
+    </div>
+</div>
+
+</body>
+</html>
