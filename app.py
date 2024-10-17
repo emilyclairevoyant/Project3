@@ -15,6 +15,7 @@ collection_summary_info = db['summary_info']
 collection_infrastructure = db['infrastructure']
 collection_data_2022 = db['data_2022']
 collection_geojson = db['geojson']
+collection_country_flags = db['country_flags']
 
 @app.route('/data_2019', methods=['GET'])
 def fetch_data():
@@ -103,6 +104,15 @@ def infrastructure():
 def top_10():
     return render_template('top_10_bottom_10_countries.html')
 
+@app.route('/country_flags', methods=['GET'])
+def fetch_flag_data():
+    try:
+        data_flags = list(collection_country_flags.find())
+        for item in data_flags:
+            item['_id'] = str(item['_id'])
+        return jsonify(data_flags)
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
 
 @app.route("/")
 def home():
