@@ -78,25 +78,23 @@ It is important to note that while a majority of the data is accurate and source
 
 3. CanvaJS
 
-4. Highcharts
-  
-5. D3.js
+4. D3.js
 
-7. Leaflet/GeoJson
+5. Leaflet/GeoJson
 
-8. Python
+6. Python
 
-9. Flask
+7. Flask
 
-10. MongoDB Atlas
+8. MongoDB Atlas
 
-11. Pandas
+9. Pandas
 
-12. CSS
+10. CSS
 
-13. Bootstrap
+11. Bootstrap
 
-14. HTML
+12. HTML
 
 ## Dashboard Navigation
 Data rendered from python Flask API is used to visualize data on the web client. User can find the following features:
