@@ -1,250 +1,204 @@
 fetch('http://127.0.0.1:5000/dataall')
-    .then(response => response.json())
-    .then(data => {
-        console.log(data);
-        const countryNames = [...new Set(data.map(item => item['Country Name']))];
-           countryNames.forEach(country => {
-            const countryData = data.filter(item => item['Country Name'] === country);
-            createImmunizationChart(countryData, country);
-            createHealthExpenditureChart(countryData, country);
-        });
-    })
-    .catch(error => console.error('Error:', error));
-
-function createChart(data, country) {
-    const immunizations = [
-        'Immunization, measles (% of children ages 12-23 months)', 
-        'Immunization, HepB3 (% of one-year-old children)', 
-        'Immunization, DPT (% of children ages 12-23 months)'
-    ];
-    const years = [2018, 2019, 2020, 2021, 2022];
-    const colors = ['slategray', 'palevioletred', 'peachpuff'];
-
-    const chartDiv = d3.select("body").append("div")
-        .attr("class", "chart")
-        .style("margin-bottom", "50px");
-
-    chartDiv.append("h2").text(`${country} - Immunization Rates`);
-
-    immunizations.forEach((immunization, index) => {
-        const pivotData = [];
-
-        years.forEach(year => {
-            const columnName = `${immunization}_${year}`;
-            const yearData = data.find(item => item['Country Name'] === country);
-            if (yearData) {
-                pivotData.push({ year, value: yearData[columnName] || 0 });
-            }
-        });
-
-        console.log(`Pivot Data for ${immunization} in ${country}:`, pivotData);
-
-        const margin = {top: 20, right: 30, bottom: 40, left: 100},
-              width = 800 - margin.left - margin.right,
-              height = 300 - margin.top - margin.bottom;
-
-        const svg = chartDiv.append("svg")
-            .attr("width", width + margin.left + margin.right)
-            .attr("height", height + margin.top + margin.bottom)
-          .append("g")
-            .attr("transform", `translate(${margin.left},${margin.top})`);
-
-        const x = d3.scaleBand()
-            .domain(years)
-            .range([0, width])
-            .padding(0.1);
-
-        const y = d3.scaleLinear()
-            .domain([0, 100])
-            .range([height, 0]);
-
-        svg.append("g")
-            .attr("transform", `translate(0,${height})`)
-            .call(d3.axisBottom(x).ticks(10));
-
-        svg.append("g")
-            .call(d3.axisLeft(y));
-
-        svg.selectAll("rect")
-            .data(pivotData)
-            .enter().append("rect")
-            .attr("x", d => x(d.year))
-            .attr("y", d => y(d.value))
-            .attr("width", x.bandwidth())
-            .attr("height", d => height - y(d.value))
-            .attr("fill", colors[index]);
-
-        svg.append("text")
-            .attr("x", width / 2)
-            .attr("y", -10)
-            .attr("text-anchor", "middle")
-            .style("font-size", "16px")
-            .text(immunization);
-    });
-    Plotly.newplot(visualization1, [trace1], layout 1);
-}
-
-      const countryNames = [...new Set(data.map(item => item['Country Name']))];
-
+  .then(response => response.json())
+  .then((data) => {
+    const years = ['2018', '2019', '2020', '2021', '2022'];
+    const countries = [...new Set(data.map(nation => nation['Country Name']))];
     
-        countryNames.forEach(country => {
-            const countryData = data.filter(item => item['Country Name'] === country);
-            createChart(countryData, country);
-        });
-    
-    .catch(error => console.error('Error:', error));
-
-function createChart(data, country) {
-    const health_expenditure = [
-        'Current health expenditure (% of GDP)', 
-        'Out-of-pocket expenditure (% of current health expenditure)'
-    ];
-    const years = [2018, 2019, 2020, 2021, 2022];
-    const colors = ['saddlebrown', 'seagreen'];
-
-    const chartDiv = d3.select("body").append("div")
-        .attr("class", "chart")
-        .style("margin-bottom", "50px");
-
-    chartDiv.append("h2").text(`${country} - Health Expenditure`);
-
-    health_expenditure.forEach((expenditure, index) => {
-        const pivotData = [];
-
-        years.forEach(year => {
-            const columnName = `${expenditure}_${year}`;
-            const yearData = data.find(item => item['Country Name'] === country);
-            if (yearData) {
-                pivotData.push({ year, value: yearData[columnName] || 0 });
+    countries.forEach(country => {
+        const countryData = data.filter(nation => nation['Country Name']=== country);
+        countries.forEach(country => {
+            
+            for (let i = 1; i <= 8; i++) {
+                const divId = `visualization${i}-${country}`;
+                if (!document.getElementById(divId)) {
+                    const newDiv = document.createElement('div');
+                    newDiv.id = divId;
+                    document.body.appendChild(newDiv); 
+                }
             }
+
         });
-
-        console.log(`Pivot Data for ${expenditure} in ${country}:`, pivotData);
-
-        const margin = {top: 20, right: 30, bottom: 40, left: 100},
-              width = 800 - margin.left - margin.right,
-              height = 300 - margin.top - margin.bottom;
-
-        const svg = chartDiv.append("svg")
-            .attr("width", width + margin.left + margin.right)
-            .attr("height", height + margin.top + margin.bottom)
-          .append("g")
-            .attr("transform", `translate(${margin.left},${margin.top})`);
-
-        const x = d3.scaleBand()
-            .domain(years)
-            .range([0, width])
-            .padding(0.1);
-
-        const y = d3.scaleLinear()
-            .domain([0, d3.max(pivotData, d => d.value)])
-            .range([height, 0]);
-
-        const line = d3.line()
-            .x(d => x(d.year) + x.bandwidth() / 2)
-            .y(d => y(d.value));
-
-        svg.append("g")
-            .attr("transform", `translate(0,${height})`)
-            .call(d3.axisBottom(x).ticks(10));
-
-        svg.append("g")
-            .call(d3.axisLeft(y));
-
-        svg.append("path")
-            .datum(pivotData)
-            .attr("fill", "none")
-            .attr("stroke", colors[index])
-            .attr("stroke-width", 1.5)
-            .attr("d", line);
-
-        svg.selectAll("circle")
-            .data(pivotData)
-            .enter().append("circle")
-            .attr("cx", d => x(d.year) + x.bandwidth() / 2)
-            .attr("cy", d => y(d.value))
-            .attr("r", 5)
-            .attr("fill", colors[index]);
-
-        svg.append("text")
-            .attr("x", width / 2)
-            .attr("y", -10)
-            .attr("text-anchor", "middle")
-            .style("font-size", "16px")
-            .text(expenditure);
+    const survival = 'Life expectancy at birth, total (years)';
+    let yaxis = [];
+    years.forEach(year => {
+      const entry = countryData.find(parameter => parameter[`${survival}_${year}`]);
+      yaxis.push(entry ? entry[`${survival}_${year}`] : 0);
     });
-    Plotly.newplot(visualization2, [trace2], layout 2);
-}
-function createChart(data, country) {
-    const survival = [
-        'Life expectancy at birth, total (years)',
-        'Survival to age 65, male (% of cohort)',
-        'Survival to age 65, female (% of cohort)'
-        
-    ];
-    const years = [2018, 2019, 2020, 2021, 2022];
-    const colors = ['lemonchiffon', 'plum', 'navy'];
+   
+    let trace1 = {
+      x: years,
+      y: yaxis,
+      type: 'bar',
+      mode: 'lines+markers',
+      marker: { color: 'palevioletred' },
+    };
 
-    const chartDiv = d3.select("body").append("div")
-        .attr("class", "chart")
-        .style("margin-bottom", "50px");
+    let layout1 = {
+      title: 'Life expectancy at birth, total (years)',
+    };
 
-    chartDiv.append("h2").text(`${country} - Survival Rates`);
+    Plotly.newPlot(`visualization1-${country}`, [trace1], layout1);
 
-    survival.forEach((survival, index) => {
-        const pivotData = [];
+    let women_survival = 'Survival to age 65, female (% of cohort)';
+    yaxis = [];
+    years.forEach(year => {
+      const entry = countryData.find(parameter => parameter[`${women_survival}_${year}`]);
+      yaxis.push(entry ? entry[`${women_survival}_${year}`] : 0);
+    });
 
-        years.forEach(year => {
-            const columnName = `${survival}_${year}`;
-            const yearData = data.find(item => item['Country Name'] === country);
-            if (yearData) {
-                pivotData.push({ year, value: yearData[columnName] || 0 });
-            }
+    let trace2 = {
+      x: years,
+      y: yaxis,
+      mode: 'lines+markers',
+      type: 'bar',
+      marker: { color: 'navy' },
+    };
+
+    let layout2 = {
+      title: 'Survival to age 65, female (% of cohort)',
+    };
+
+    Plotly.newPlot(`visualization2-${country}`, [trace2], layout2);
+
+    let men_survival = 'Survival to age 65, male (% of cohort)';
+    yaxis = [];
+    years.forEach(year => {
+      const entry = countryData.find(parameter => parameter[`${men_survival}_${year}`]);
+      yaxis.push(entry ? entry[`${men_survival}_${year}`] : 0);
+    });
+
+    let trace3 = {
+      x: years,
+      y: yaxis,
+      mode: 'lines+markers',
+      type: 'bar',
+      marker: { color: 'slategray' },
+    };
+
+    let layout3 = {
+      title: 'Survival to age 65, male (% of cohort)',
+    };
+
+    Plotly.newPlot(`visualization3-${country}`, [trace3], layout3);
+
+    let HepB3 = 'Immunization, HepB3 (% of one-year-old children)';
+    yaxis = [];
+    years.forEach(year => {
+      const entry = countryData.find(parameter => parameter[`${HepB3}_${year}`]);
+      yaxis.push(entry ? entry[`${HepB3}_${year}`] : 0);
+    });
+
+    let trace4 = {
+      x: years,
+      y: yaxis,
+      mode: 'lines+markers',
+      type: 'bar',
+      marker: { color: 'saddlebrown' },
+    };
+
+    let layout4 = {
+      title: 'Immunization, HepB3 (% of one-year-old children)',
+    };
+
+    Plotly.newPlot(`visualization4-${country}`, [trace4], layout4);
+
+    let DPT = 'Immunization, DPT (% of children ages 12-23 months)';
+    yaxis = [];
+    years.forEach(year => {
+      const entry = countryData.find(parameter => parameter[`${DPT}_${year}`]);
+      yaxis.push(entry ? entry[`${DPT}_${year}`] : 0);
+    });
+
+    let trace5 = {
+      x: years,
+      y: yaxis,
+      mode: 'lines+markers',
+      type: 'bar',
+      marker: { color: 'peachpuff' },
+    };
+
+    let layout5 = {
+      title: 'Immunization, DPT (% of children ages 12-23 months)',
+    };
+
+    Plotly.newPlot('visualization5', [trace5], layout5);
+
+    let Measles = 'Immunization, measles (% of children ages 12-23 months)';
+    yaxis = [];
+    years.forEach(year => {
+      const entry = countryData.find(parameter => parameter[`${Measles}_${year}`]);
+      yaxis.push(entry ? entry[`${Measles}_${year}`] : 0);
+    });
+
+    let trace6 = {
+      x: years,
+      y: yaxis,
+      mode: 'lines+markers',
+      type: 'bar',
+      marker: { color: 'pink' },
+    };
+
+    let layout6 = {
+      title: 'Immunization, measles (% of children ages 12-23 months)',
+    };
+
+    Plotly.newPlot(`visualization6-${country}`, [trace6], layout6);
+
+    let GDP_Health = 'Current health expenditure (% of GDP)';
+    yaxis = [];
+    years.forEach(year => {
+      const entry = countryData.find(parameter => parameter[`${GDP_Health}_${year}`]);
+      yaxis.push(entry ? entry[`${GDP_Health}_${year}`] : 0);
+    });
+
+    let trace7 = {
+      x: years,
+      y: yaxis,
+      mode: 'lines+markers',
+      type: 'line',
+      marker: { color: 'pink' },
+    };
+
+    let layout7 = {
+      title: 'Current health expenditure (% of GDP)',
+    };
+
+    Plotly.newPlot(`visualization7-${country}`, [trace7], layout7);
+
+    let OOP_Health = 'Out-of-pocket expenditure (% of current health expenditure)';
+    yaxis = [];
+    years.forEach(year => {
+      const entry = countryData.find(parameter => parameter[`${OOP_Health}_${year}`]);
+      yaxis.push(entry ? entry[`${OOP_Health}_${year}`] : 0);
+    });
+
+    let trace8 = {
+      x: years,
+      y: yaxis,
+      mode: 'lines+markers',
+      type: 'line',
+      marker: { color: 'slategray' },
+    };
+
+    let layout8 = {
+      title: 'Out-of-pocket expenditure (% of current health expenditure)',
+    };
+
+    Plotly.newPlot(`visualization8-${country}`, [trace8], layout8);
+  })
+  .catch(error => console.error('Error fetching data:', error));
+  })
+  function init(){
+    let drop = d3.select('#countrySelect');
+    d3.json('http://127.0.0.1:5000/dataall').then((data)=>{
+        let names= data.map(d=>d['Country Name']);
+        names.forEach(country=> {
+            drop.append('option')
+            .text(country)
+            .property('value', country);
         });
-
-        console.log(`Pivot Data for ${survival} in ${country}:`, pivotData);
-        const margin = {top: 20, right: 30, bottom: 40, left: 100},
-        width = 800 - margin.left - margin.right,
-        height = 300 - margin.top - margin.bottom;
-
-  const svg = chartDiv.append("svg")
-      .attr("width", width + margin.left + margin.right)
-      .attr("height", height + margin.top + margin.bottom)
-    .append("g")
-      .attr("transform", `translate(${margin.left},${margin.top})`);
-
-  const x = d3.scaleBand()
-      .domain(years)
-      .range([0, width])
-      .padding(0.1);
-
-  const y = d3.scaleLinear()
-      .domain([0, 100])
-      .range([height, 0]);
-
-  svg.append("g")
-      .attr("transform", `translate(0,${height})`)
-      .call(d3.axisBottom(x).ticks(10));
-
-  svg.append("g")
-      .call(d3.axisLeft(y));
-
-  svg.selectAll("rect")
-      .data(pivotData)
-      .enter().append("rect")
-      .attr("x", d => x(d.year))
-      .attr("y", d => y(d.value))
-      .attr("width", x.bandwidth())
-      .attr("height", d => height - y(d.value))
-      .attr("fill", colors[index]);
-
-  svg.append("text")
-      .attr("x", width / 2)
-      .attr("y", -10)
-      .attr("text-anchor", "middle")
-      .style("font-size", "16px")
-      .text(survival);
-});
-Plotly.newplot(visualization3, [trace3], layout 3);
-}
-
+        let country1 = names[0];
+        updateVisualizations(country1, data);
+    });
+  }
+  init();
