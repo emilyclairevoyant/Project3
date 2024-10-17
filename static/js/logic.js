@@ -25,14 +25,14 @@ function createMap() {
   d3.json("http://127.0.0.1:5000/geo_json").then(function(geodata) {
     console.log(geodata);
     // country flags json
-    d3.json('http://127.0.0.1:5000/country_flags').then(function(flagssData) {
+    d3.json('http://127.0.0.1:5000/country_flags').then(function(flagsData) {
     // qual of life JSON
       d3.json('http://127.0.0.1:5000/summary_info').then(function(qualityData) {
       console.log(qualityData);
     
     // Create a map of country names to their images
     const flagMap = {};
-    flagssData.forEach(item => {
+    flagsData.forEach(item => {
         flagMap[item['country']] = item.flag_base64;
     });
     
@@ -149,13 +149,17 @@ function createMap() {
        // Handle specific country name discrepancies
        if (countryname === "Russian Federation") {
         qualityScore = qualityData.find(item => item['Country Name'] === "Russia")?.['Quality of Life  '] || "Data not available";
-    } else if (countryname === "Turkiye") {
+        countryFlag = flagMap["Russia"] || "";
+      } else if (countryname === "Turkiye") {
         qualityScore = qualityData.find(item => item['Country Name'] === "Turkey")?.['Quality of Life  '] || "Data not available";
-    } else if (countryname === "Côte d'Ivoire") {
+        countryFlag = flagMap["Turkey"] || "";
+      } else if (countryname === "Côte d'Ivoire") {
         qualityScore = qualityData.find(item => item['Country Name'] === "Ivory Coast")?.['Quality of Life  '] || "Data not available";
-    } else if (countryname === "Congo DRC") {
+        countryFlag = flagMap["Ivory Coast"] || "";
+      } else if (countryname === "Congo DRC") {
         qualityScore = qualityData.find(item => item['Country Name'] === "DR Congo")?.['Quality of Life  '] || "Data not available";
-    } else {
+        countryFlag = flagMap["The Democratic Republic of Congo"] || "";
+      } else {
         // General case: match country names directly
         let selectedCountryData = qualityData.find(item => item['Country Name'] === countryname);
         if (selectedCountryData) {
@@ -183,7 +187,7 @@ function init() {
     d3.json('http://127.0.0.1:5000/summary_info').then((data) => {
         // Extract country names
         let countryNames = data.map(d => d['Country Name']); 
-
+      
         // Populate the dropdown menu with country names
         countryNames.forEach((country) => {
             dropDownMenu.append("option")
@@ -193,30 +197,13 @@ function init() {
 
         // Load the GeoJSON data & update summary 
         d3.json("http://127.0.0.1:5000/geo_json").then(function(geodata) {
-          let geolink = 'http://127.0.0.1:5000/geo_json';
-        fetch(geolink)
-            .then(response => response.json())
-            .then(geodata => {
-                // Initialize dashboard with the first country in the list
+        //         // Initialize dashboard with the first country in the list
                 let firstCountry = countryNames[0];
                 updateSummaryInfo(firstCountry);  // Display the first country's data
             });
-        fetch(geolink)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok ' + response.statusText);
-            }
-            return response.json();
-        })
-        .then(geodata => {
-            let firstCountry = countryNames[0];
-            updateSummaryInfo(firstCountry);
-        })
-        .catch(error => {
-            console.error('There has been a problem with your fetch operation:', error);
         }); 
     // });
-    })});}
+    };
 
 // Function to update summary info based on selected country
 function updateSummaryInfo(country) {
@@ -240,16 +227,33 @@ function updateSummaryInfo(country) {
             .append("p").text(`Country Code: ${selectedCountryData['Country Code']}`)
             .append("p").text(`Population: ${selectedCountryData['Population']}`)
             .append("p").text(`Quality of Life (Numbeo 2023): ${qualityOfLife}`)
-            .append("p").text(`Rank: ${rank}`);
+            .append("p").text(`Rank: ${rank}`)
+            ;
+
+        // Retrieve and display the country flag
+        d3.json('http://127.0.0.1:5000/country_flags').then(flagsData => {
+          const flagMap = {};
+          flagsData.forEach(item => {
+              flagMap[item['country']] = item.flag_base64;
+          });
+          const countryFlag = flagMap[country] || '';
+          if (countryFlag) {
+              d3.select("#summary-info")
+                  .append("img")
+                  .attr("src", countryFlag)
+                  // .attr("alt", `${country} flag`)
+                  .style("width", "50px")
+                  .style("height", "auto");
+}})
 })}
 
-// Event listener for dropdown change
-d3.select("#countrySelect").on("change", function() {
-    // Get the selected country
-    const selectedCountry = d3.select(this).property("value");
-    // Update summary info when the country changes
-    updateSummaryInfo(selectedCountry);
-});
+// // Event listener for dropdown change
+// d3.select("#countrySelect").on("change", function() {
+//     // Get the selected country
+//     const newCountry = d3.select(this).property("value");
+//     // Update summary info when the country changes
+//     updateSummaryInfo(newCountry);
+// });
 
 
 // run create map function
