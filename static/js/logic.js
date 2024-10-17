@@ -242,7 +242,6 @@ function updateSummaryInfo(country) {
             .append("p").text(`Country Code: ${selectedCountryData['Country Code']}`)
             .append("p").text(`Population: ${selectedCountryData['Population']}`)
             .append("p").text(`Quality of Life (Numbeo 2023): ${qualityOfLife}`)
-            .append("p").text(`Rank: ${rank}`)
             ;
 
         // Retrieve and display the country flag
