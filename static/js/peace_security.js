@@ -118,22 +118,34 @@ function updateVisualizations(selectedCountry, data) {
 
     Plotly.newPlot('visualization2', [trace2], layout2);
 
-    // Plot for Internally Displaced Persons (Visualization 3)
-    let trace3 = {
-        x: years,
-        y: displacedPersons,
-        type: 'bar',
-        name: 'Displaced Persons',
-        marker: {color: 'orange'}
-    };
+    // Use CanvaJS to create the bar chart for Internally Displaced Persons
+    var chart = new CanvasJS.Chart("visualization3", {
+        animationEnabled: true,
+        theme: "light2",
+        title: {
+            text: "Internally Displaced Persons (Number of People)"
+        },
+        axisX: {
+            title: "Year",
+            interval: 1
+        },
+        axisY: {
+            title: "Number of People",
+            includeZero: true
+        },
+        data: [{
+            type: "column",  // Change this to "bar" if you prefer horizontal bars
+            dataPoints: [
+                { label: "2018", y: displacedPersons[0] },
+                { label: "2019", y: displacedPersons[1] },
+                { label: "2020", y: displacedPersons[2] },
+                { label: "2021", y: displacedPersons[3] },
+                { label: "2022", y: displacedPersons[4] }
+            ]
+        }]
+    });
 
-    let layout3 = {
-        title: 'Internally Displaced Persons (Number of People)',
-        xaxis: { title: 'Year' },
-        yaxis: { title: 'Number of People' }
-    };
-
-    Plotly.newPlot('visualization3', [trace3], layout3);
+    chart.render();
 
     // Plot for Net Migration (Visualization 4)
     let trace4 = {
@@ -188,27 +200,6 @@ function updateVisualizations(selectedCountry, data) {
     };
 
     Plotly.newPlot('visualization6', [trace6], layout6);
-
-    // Heatmap combining all key indicators
-    let heatmapData = [
-        politicalStability, govEffectiveness, displacedPersons, netMigration, voiceAccountability, ruleOfLaw
-    ];
-
-    let heatmapTrace = {
-        z: heatmapData,
-        x: years,
-        y: ['Political Stability', 'Gov Effectiveness', 'Displaced Persons', 'Net Migration', 'Voice & Accountability', 'Rule of Law'],
-        type: 'heatmap',
-        colorscale: 'Viridis'
-    };
-
-    let heatmapLayout = {
-        title: 'Heatmap of Key Indicators Over Time',
-        xaxis: { title: 'Year' },
-        yaxis: { title: 'Indicators' }
-    };
-
-    Plotly.newPlot('heatmap', [heatmapTrace], heatmapLayout);
 }
 
 // Event listener for dropdown change
