@@ -19,6 +19,7 @@ collection_geojson = db['geojson']
 collection_country_flags = db['country_flags']
 collection_affordability = db['affordability']
 collection_jobMarket = db['jobMarket']
+collection_fam_friend = db['fam_friend']
 
 @app.route('/data_2019', methods=['GET'])
 def fetch_data():
@@ -144,6 +145,20 @@ def fetch_jobMarket():
         return jsonify(data_jobMarket)
     except Exception as e:
         return jsonify({"error": str(e)}), 500
+    
+@app.route('/FamFr_data', methods=['GET'])
+def fetch_famfr():
+    try:
+        data_family = list(collection_fam_friend.find())
+        for item in data_family:
+            item['_id'] = str(item['_id'])
+        return jsonify(data_family)
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+@app.route("/FamFr")
+def famfriend():
+    return render_template('family.html')  
 
 @app.route("/jobMarket")
 def jobM():
