@@ -92,32 +92,6 @@ let chart2 = new CanvasJS.Chart("visualization2", {
 });
 chart2.render();
 
-// Plot for Regulatory Quality (Visualization 3) using CanvasJS
-// let chart3 = new CanvasJS.Chart("visualization3", {
-//     animationEnabled: true,
-//     title: {
-//         text: "Regulatory Quality (Opinion on Gov)"
-//     },
-//     axisX: {
-//         title: "Year",
-//     },
-//     axisY: {
-//         title: "Estimate (score std -2.5 to 2.5)",
-//         includeZero: true
-//     },
-//     data: [{
-//         type: "column", // "column" for bar charts in CanvasJS
-//         name: "Regulatory Quality",
-//         color: "orange",
-//         dataPoints: [
-//             { label: '2018', y: regQual[0] },
-//             { label: '2019', y: regQual[1] },
-//             { label: '2020', y: regQual[2] },
-//             { label: '2021', y: regQual[3] },
-//             { label: '2022', y: regQual[4] }
-//         ]
-//     }]
-
     // Create data for Plotly
     const trace = {
         x: years,
