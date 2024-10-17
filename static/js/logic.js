@@ -115,15 +115,15 @@ function createMap() {
           for (let i = 0; i < grades.length; i++) {
               // Determine the color for the label
               let color;
-              if (grades[i] === 0) {
-                  color = 'red';
+              if (grades[i] == 0) {
+                color = 'red';
               } else if (grades[i] <= 50) {
-                  color = 'orange';
-              } else if (grades[i] <= 100) {
-                  color = 'yellow';
-              } else if (grades[i] <= 150) {
-                  color = 'green';
-              } else {
+                color = 'orange';
+            }  else if (grades[i] <= 100) {
+              color = 'yellow';
+            } else if (grades[i] <= 150) {
+                color = 'green';
+            } else {
                   color = 'grey';
               }
   
