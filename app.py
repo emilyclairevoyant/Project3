@@ -13,6 +13,7 @@ collection_consolidated = db['consolidated_data']
 collection_peace_security = db['peace_and_security']
 collection_summary_info = db['summary_info']
 collection_data_2022 = db['data_2022']
+collection_affordability = db['affordability']
 
 @app.route('/data_2019', methods=['GET'])
 def fetch_data():
@@ -63,12 +64,24 @@ def fetch_parameters():
         return jsonify(data_parameters)
     except Exception as e:
         return jsonify({"error": str(e)}), 500
-
+@app.route('/affordability_data', methods=['GET'])
+def fetch_affdata():
+    try:
+        affdata = list(collection_affordability.find())
+        for item in affdata:
+            item['_id'] = str(item['_id'])
+        return jsonify(affdata)
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
 
 
 @app.route("/")
 def home():
     return render_template('index.html')  
+
+@app.route("/affordability")
+def affordability():
+    return render_template('affordability.html') 
 
 if __name__ == '__main__':
     app.run(debug=True)
