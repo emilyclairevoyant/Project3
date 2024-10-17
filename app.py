@@ -17,6 +17,7 @@ collection_data_2022 = db['data_2022']
 collection_geojson = db['geojson']
 collection_country_flags = db['country_flags']
 collection_affordability = db['affordability']
+collection_jobMarket = db['jobMarket']
 
 @app.route('/data_2019', methods=['GET'])
 def fetch_data():
@@ -116,6 +117,20 @@ def fetch_summary_info():
         return jsonify(data_summary_info)
     except Exception as e:
         return jsonify({"error": str(e)}), 500
+    
+@app.route('/jobMarket_data', methods=['GET'])
+def fetch_jobMarket():
+    try:
+        data_jobMarket = list(collection_jobMarket.find())
+        for item in data_jobMarket:
+            item['_id'] = str(item['_id'])
+        return jsonify(data_jobMarket)
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+@app.route("/jobMarket")
+def jobM():
+    return render_template('jobM.html')  
 
 @app.route('/Affordability')
 def affordability():
@@ -129,15 +144,6 @@ def infrastructure():
 def top_10():
     return render_template('top_10_bottom_10_countries.html')
 
-@app.route('/country_flags', methods=['GET'])
-def fetch_flag_data():
-    try:
-        data_flags = list(collection_country_flags.find())
-        for item in data_flags:
-            item['_id'] = str(item['_id'])
-        return jsonify(data_flags)
-    except Exception as e:
-        return jsonify({"error": str(e)}), 500
 @app.route('/About')
 def about():
     return render_template('about.html')
