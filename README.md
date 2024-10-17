@@ -12,22 +12,14 @@ While exploring our dashboard, it is important that the user takes into consider
 ## Ethics and Considerations
 Although our team put a lot of consideration into the data sources and parameters chosen to fuel this dashboard, it is important to note that data is not all inclusive and what is deemed important for quality of life for each person may differ, as seen across quality of life dataset availble on the web. Some data was only as recent as 2022 or 2023, and world events and tragedies may certainly change conditions in individual countries, leading to some differences in our dashboard data and potential current reports. It is also important to consider that we are aware each country and its citizens are trying to their best and may have differing access to some resources that are counted as parameters for our dashboard. Please be sure to use our dashboard as a starting point to your research and be sure to use your own discretion.
 
-## References for the data source(s)
-  
-Our data is primarily sourced from the World Bank's Data Catalog. Indicators were selected based on which we thought best indicated quality of life.
-
-Our GEOJSON for country names and coordinates was sourced from https://hub.arcgis.com/datasets/esri::world-countries-generalized/explore .
-
-Our population for each country data was sourced from https://data.worldbank.org/indicator/SP.POP.TOTL
-
-The World Quality Index values data was from World population review https://worldpopulationreview.com/country-rankings/standard-of-living-by-country
-
 ## References for our data sources
 Our data is primarily sourced from the World Bank's Data Catalog (https://data.worldbank.org/indicator). Indicators were selected based on which we thought best indicated quality of life.
 
 Our GEOJSON for country names and coordinates was sourced from ArcGIS Hub's World Countries Generalized Dataset (https://hub.arcgis.com/datasets/esri::world-countries-generalized/explore).
 
 Our population for each country and the World Quality Index values data was from World Population Review (https://worldpopulationreview.com/country-rankings/standard-of-living-by-country).
+
+Our maps for each country is from (https://github.com/samayo/country-json/tree/master).
 
 ## Disclaimers and Code References
 It is important to note that while a majority of the data is accurate and sourced from World Bank, some data did have to be interpolated due to missing values. By default Pandas utilizes linear interpolation, so the missing values were estimated as the median of the value above and below it in the respective data frames.
