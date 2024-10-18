@@ -12,10 +12,6 @@ collection_2019 = db['data_2019']
 collection_consolidated = db['consolidated_data']
 collection_peace_security = db['peace_and_security']
 collection_summary_info = db['summary_info']
-<<<<<<< HEAD
-collection_data_2022 = db['data_2022']
-<<<<<<< HEAD
-=======
 collection_infrastructure = db['infrastructure']
 collection_data_2022 = db['data_2022']
 collection_geojson = db['geojson']
@@ -24,10 +20,6 @@ collection_affordability = db['affordability']
 collection_jobMarket = db['jobMarket']
 collection_fam_friend = db['fam_friend']
 collection_health = db['health']
->>>>>>> 26d8e7a2eb414ace56ac9c385c04471ce55ea410
-=======
-collection_affordability = db['affordability']
->>>>>>> 82d3323b8d02cb66997c383eafbfc3fe365f6532
 
 @app.route('/data_2019', methods=['GET'])
 def fetch_data():
@@ -142,15 +134,6 @@ def fetch_summary_info():
     except Exception as e:
         return jsonify({"error": str(e)}), 500
     
-<<<<<<< HEAD
-@app.route('/parameters', methods=['GET'])
-def fetch_parameters():
-    try:
-        data_parameters = list(collection_data_2022.find())
-        for item in data_parameters:
-            item['_id'] = str(item['_id'])
-        return jsonify(data_parameters)
-=======
 @app.route('/jobMarket_data', methods=['GET'])
 def fetch_jobMarket():
     try:
@@ -168,25 +151,12 @@ def fetch_famfr():
         for item in data_family:
             item['_id'] = str(item['_id'])
         return jsonify(data_family)
->>>>>>> 26d8e7a2eb414ace56ac9c385c04471ce55ea410
     except Exception as e:
         return jsonify({"error": str(e)}), 500
-<<<<<<< HEAD
 
 @app.route("/FamFr")
 def famfriend():
     return render_template('family.html') 
-=======
-@app.route('/affordability_data', methods=['GET'])
-def fetch_affdata():
-    try:
-        affdata = list(collection_affordability.find())
-        for item in affdata:
-            item['_id'] = str(item['_id'])
-        return jsonify(affdata)
-    except Exception as e:
-        return jsonify({"error": str(e)}), 500
->>>>>>> 82d3323b8d02cb66997c383eafbfc3fe365f6532
 
 @app.route("/jobMarket")
 def jobM():
@@ -211,10 +181,6 @@ def about():
 @app.route("/")
 def home():
     return render_template('index.html')  
-
-@app.route("/affordability")
-def affordability():
-    return render_template('affordability.html') 
 
 if __name__ == '__main__':
     app.run(debug=True)

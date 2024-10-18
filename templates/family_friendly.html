@@ -5,11 +5,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Parameter: Family Friendly/title>
+  <title>Parameter: Family Friendliness</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
-  <style>
+ <style>
     #visualization1, #visualization2, #visualization3, #visualization4, #visualization5 {
       height: 400px; /* Adjust the height for your graphs */
     }
@@ -21,8 +20,8 @@
   <div class="container">
     <div class="row">
       <div class="col-md-12 p-5 text-center bg-light">
-        <h1>Familh Friendly Parameters</h1>
-        <p>Did you know? The literacy rate is measured by the amount of adults in a certain age group that are able to read and write. </p>
+        <h1>Family Friendliness Parameters</h1>
+        <p>A family friendly country can be understood as one with a stable education system and solid protections in place for children. </p>
       </div>
     </div>
     <br>
@@ -30,49 +29,41 @@
       <div class="col-md-3">
         <div class="card card-body bg-light">
           <h6>Select a Country:</h6>
-<<<<<<< HEAD
-          <select id="countrySelect" onchange="optionChanged(this.value)"></select> <!-- Dropdown for selecting country -->
-=======
           <select id="countrySelect" onchange="updateCharts()"></select>
->>>>>>> 26d8e7a2eb414ace56ac9c385c04471ce55ea410
         </div>
       </div>
     </div>
 
     <br>
 
-    <!-- 6 Graphs Layout -->
-    <div class="row">
-      <div class="col-md-6">
-        <div id="visualization1"></div> <!-- Graph 1 -->
-      </div>
-      <div class="col-md-6">
-        <div id="visualization2"></div> <!-- Graph 2 -->
-      </div>
+   <!-- 5 Graphs Layout -->
+<div class="row">
+    <div class="col-md-6">
+      <div id="visualization1"></div> <!-- Graph 1 -->
     </div>
-    <br>
-    <div class="row">
-      <div class="col-md-6">
-        <div id="visualization3"></div> <!-- Graph 3 -->
-      </div>
-      <div class="col-md-6">
-        <div id="visualization4"></div> <!-- Graph 4 -->
-      </div>
+    <div class="col-md-6">
+      <div id="visualization2"></div> <!-- Graph 2 -->
     </div>
-    <br>
-    <div class="row">
-      <div class="col-md-6">
-        <div id="visualization5"></div> <!-- Graph 5 -->
-      </div>
-      
+  </div>
+  <br>
+  <div class="row">
+    <div class="col-md-6">
+      <div id="visualization3"></div> <!-- Graph 3 -->
+    </div>
+    <div class="col-md-6">
+      <div id="visualization4"></div> <!-- Graph 4 -->
+    </div>
+  </div>
+  <br>
+  <div class="row">
+    <div class="col-md-6">
+      <div id="visualization5"></div> <!-- Graph 5 -->
+    </div>
+  </div>
+  <br>
 
   </div>
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-  <script src="https://code.highcharts.com/highcharts.js"></script> <!-- Highcharts library -->
-  <script src="../static/js/highcharts_logic.js"></script> <!-- Assuming you have the logic in a separate JS file -->
-=======
   <head>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
     <script src="http://code.highcharts.com/highcharts.js"></script>
@@ -82,16 +73,6 @@
     <script src="https://code.highcharts.com/modules/accessibility.js"></script>
     <script src="https://d3js.org/d3.v5.min.js"></script>
     <script src="../static/js/highcharts_logic.js"></script> 
->>>>>>> 26d8e7a2eb414ace56ac9c385c04471ce55ea410
   </body>
-=======
-  <!-- JavaScript Libraries -->
-  <script src="https://d3js.org/d3.v7.min.js"></script>
-  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script> <!-- For Plotly graphs -->
-  <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script> <!-- For CanvaJS graph -->
-  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-  <script src="../static/js/family_friendly.js"></script> <!-- Assuming you have the logic in a separate JS file -->
->>>>>>> 82d3323b8d02cb66997c383eafbfc3fe365f6532
 
-</body>
 </html>
