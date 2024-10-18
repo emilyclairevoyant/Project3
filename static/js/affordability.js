@@ -30,11 +30,19 @@ function updateVisualizations(selectedCountry, data) {
 
     // Data for Gini Index
     let giniIndex = [
+<<<<<<< HEAD
         countryData['Gini index_2018'],
         countryData['Gini index_2019'],
         countryData['Gini index_2020'],
         countryData['Gini index_2021'],
         countryData['Gini index_2022']
+=======
+        countryData['Gini Index_2018'],
+        countryData['Gini Index_2019'],
+        countryData['Gini Index_2020'],
+        countryData['Gini Index_2021'],
+        countryData['Gini Index_2022']
+>>>>>>> 82d3323b8d02cb66997c383eafbfc3fe365f6532
     ];
 
     // Data for Impoverishing Surgical Care
@@ -66,11 +74,19 @@ function updateVisualizations(selectedCountry, data) {
 
     // Data for Poverty Ratio
     let povertyRatio = [
+<<<<<<< HEAD
         countryData['Multidimensional poverty headcount ratio (World Bank) (% of population)_2018'],
         countryData['Multidimensional poverty headcount ratio (World Bank) (% of population)_2019'],   
         countryData['Multidimensional poverty headcount ratio (World Bank) (% of population)_2020'],
         countryData['Multidimensional poverty headcount ratio (World Bank) (% of population)_2021'],
         countryData['Multidimensional poverty headcount ratio (World Bank) (% of population)_2022']
+=======
+        countryData['Multidimensional poverty headcount ratio (% of total population)_2018'],
+        countryData['Multidimensional poverty headcount ratio (% of total population)_2019'],   
+        countryData['Multidimensional poverty headcount ratio (% of total population)_2020'],
+        countryData['Multidimensional poverty headcount ratio (% of total population)_2021'],
+        countryData['Multidimensional poverty headcount ratio (% of total population)_2022']
+>>>>>>> 82d3323b8d02cb66997c383eafbfc3fe365f6532
     ];
 
    
@@ -166,7 +182,11 @@ function updateVisualizations(selectedCountry, data) {
 
     Plotly.newPlot('visualization5', [trace5], layout5);
 
+<<<<<<< HEAD
 }
+=======
+ 
+>>>>>>> 82d3323b8d02cb66997c383eafbfc3fe365f6532
 
 // Event listener for dropdown change
 d3.select("#countrySelect").on("change", function() {
@@ -177,4 +197,8 @@ d3.select("#countrySelect").on("change", function() {
 });
 
 // Initialize the dashboard on page load
+<<<<<<< HEAD
 init(); // Add a closing curly brace here
+=======
+init();} // Add a closing curly brace here
+>>>>>>> 82d3323b8d02cb66997c383eafbfc3fe365f6532

@@ -1,10 +1,16 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 # Project3
 =======
 # SafeMove Compass
 ![https://activated.org/media/images/a-compass-for-lifes-journey.max-750x450.jpg](https://activated.org/media/images/a-compass-for-lifes-journey.max-750x450.jpg)
 
 >>>>>>> 26d8e7a2eb414ace56ac9c385c04471ce55ea410
+=======
+# SafeMove Compass
+![https://activated.org/media/images/a-compass-for-lifes-journey.max-750x450.jpg](https://activated.org/media/images/a-compass-for-lifes-journey.max-750x450.jpg)
+
+>>>>>>> 82d3323b8d02cb66997c383eafbfc3fe365f6532
 ## An overview of the project and its purpose
 
 Whether going on vacation or planning a move, many individuals worry about their safety and happiness in their new location. Despite a plethora of information on the web – including various articles and videos – people can get overwhelmed when searching for answers on various aspects of the new country and keeping track of the newly acquired information. Not only can it be difficult to research, but a layperson can also find it difficult to understand the surveys and quality of life indexes they do find.
@@ -13,6 +19,7 @@ Whether going on vacation or planning a move, many individuals worry about their
 
 While exploring our dashboard, it is important that the user takes into consideration current global events and do more research on the country or countries of their choosing. While we utilized data that we all agreed would be most pertinent to determining quality of life, it is not necessarily representative of the current state of the world. We are only capable of visualizing data that is given to us, which ranges from years 2018-2022 due to availability of data provided, and so it is unfortunately not the most up to date representation of each country that we are looking at.
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 ## At least one paragraph summarizing efforts for ethical considerations made in the project
 
@@ -38,6 +45,19 @@ The World Quality Index values data was from World population review https://wor
 =======
 Our maps for each country is from (https://github.com/samayo/country-json/tree/master).
 >>>>>>> 26d8e7a2eb414ace56ac9c385c04471ce55ea410
+=======
+## Ethics and Considerations
+Although our team put a lot of consideration into the data sources and parameters chosen to fuel this dashboard, it is important to note that data is not all inclusive and what is deemed important for quality of life for each person may differ, as seen across quality of life dataset availble on the web. Some data was only as recent as 2022 or 2023, and world events and tragedies may certainly change conditions in individual countries, leading to some differences in our dashboard data and potential current reports. It is also important to consider that we are aware each country and its citizens are trying to their best and may have differing access to some resources that are counted as parameters for our dashboard. Please be sure to use our dashboard as a starting point to your research and be sure to use your own discretion.
+
+## References for our data sources
+Our data is primarily sourced from the World Bank's Data Catalog (https://data.worldbank.org/indicator). Indicators were selected based on which we thought best indicated quality of life.
+
+Our GEOJSON for country names and coordinates was sourced from ArcGIS Hub's World Countries Generalized Dataset (https://hub.arcgis.com/datasets/esri::world-countries-generalized/explore).
+
+Our population for each country and the World Quality Index values data was from World Population Review (https://worldpopulationreview.com/country-rankings/standard-of-living-by-country).
+
+Our maps for each country is from (https://github.com/samayo/country-json/tree/master).
+>>>>>>> 82d3323b8d02cb66997c383eafbfc3fe365f6532
 
 ## Disclaimers and Code References
 It is important to note that while a majority of the data is accurate and sourced from World Bank, some data did have to be interpolated due to missing values. By default Pandas utilizes linear interpolation, so the missing values were estimated as the median of the value above and below it in the respective data frames.
@@ -69,6 +89,7 @@ It is important to note that while a majority of the data is accurate and source
 - Inflation, consumer prices (annual %)
 - Lending interest rate (%)
 <<<<<<< HEAD
+<<<<<<< HEAD
 - Multidimensional poverty headcount ratio (World Bank) (% of population)
 - 
 6. Peace and Security (polit stab, marg groups, etc)
@@ -76,6 +97,10 @@ It is important to note that while a majority of the data is accurate and source
 - Multidimensional poverty headcount ratio (World Bank) (% of population)  
 5. Peace and Security (polit stab, marg groups, etc)
 >>>>>>> 26d8e7a2eb414ace56ac9c385c04471ce55ea410
+=======
+- Multidimensional poverty headcount ratio (World Bank) (% of population)  
+5. Peace and Security (polit stab, marg groups, etc)
+>>>>>>> 82d3323b8d02cb66997c383eafbfc3fe365f6532
 - Women making their own informed decisions regarding sexual relations, contraceptive use and reproductive health care (% of women age 15-49)
 - Political Stability and Absence of Violence/Terrorism: Estimate
 - Rule of Law: Estimate
