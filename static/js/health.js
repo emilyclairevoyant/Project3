@@ -121,7 +121,7 @@ function updateVisualizations(selectedCountry, data) {
             interval: 1
         },
         axisY: {
-            title: "Percentage (%)",
+            title: "% of children ages 12-23 months",
             includeZero: true
         },
         data: [{
@@ -144,7 +144,7 @@ function updateVisualizations(selectedCountry, data) {
             interval: 1
         },
         axisY: {
-            title: "Years",
+            title: "Years (age)",
             includeZero: true
         },
         data: [{
@@ -168,7 +168,7 @@ function updateVisualizations(selectedCountry, data) {
     let layout4 = {
         title: 'Out-of-Pocket Expenditure (% of current health expenditure)',
         xaxis: { title: 'Year' },
-        yaxis: { title: '%' }
+        yaxis: { title: '% of current health expenditure' }
     };
 
     Plotly.newPlot('visualization4', [trace4], layout4);
@@ -186,7 +186,7 @@ function updateVisualizations(selectedCountry, data) {
     let layout5 = {
         title: 'Survival to Age 65, Female (% of cohort)',
         xaxis: { title: 'Year' },
-        yaxis: { title: '%' }
+        yaxis: { title: '% of cohort' }
     };
 
     Plotly.newPlot('visualization5', [trace5], layout5);
@@ -204,7 +204,7 @@ function updateVisualizations(selectedCountry, data) {
     let layout6 = {
         title: 'Survival to Age 65, Male (% of cohort)',
         xaxis: { title: 'Year' },
-        yaxis: { title: '%' }
+        yaxis: { title: '% of cohort' }
     };
 
     Plotly.newPlot('visualization6', [trace6], layout6);
@@ -221,7 +221,7 @@ function updateVisualizations(selectedCountry, data) {
             interval: 1
         },
         axisY: {
-            title: "Percentage (%)",
+            title: "% of children ages 12-23 months",
             includeZero: true
         },
         data: [{

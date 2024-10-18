@@ -66,7 +66,7 @@ function updateVisualizations(selectedCountry, data) {
     let layout1 = {
         title: 'Cellular Subscriptions per 100 people',
         xaxis: { title: 'Year' },
-        yaxis: { title: 'Estimate' }
+        yaxis: { title: 'Estimated Count' }
     };
     Plotly.newPlot('visualization1', [trace1], layout1);
     // Plot for Government Effectiveness (Visualization 2) using CanvasJS
@@ -79,7 +79,7 @@ let chart2 = new CanvasJS.Chart("visualization2", {
         title: "Year",
     },
     axisY: {
-        title: "Estimate",
+        title: "Estimate (% of Population)",
         includeZero: true
     },
     data: [{
@@ -100,13 +100,13 @@ chart2.render();
 let chart3 = new CanvasJS.Chart("visualization3", {
     animationEnabled: true,
     title: {
-        text: "Internet Users (%)"
+        text: "Internet Users (% of Population)"
     },
     axisX: {
         title: "Year",
     },
     axisY: {
-        title: "Number of People",
+        title: "% of Population",
         includeZero: true
     },
     data: [{
@@ -135,7 +135,7 @@ chart3.render();
     let layout4 = {
         title: 'Statistical performance indicators (SPI)',
         xaxis: { title: 'Year' },
-        yaxis: { title: 'People' }
+        yaxis: { title: 'Score (scale 0-100)' }
     };
     Plotly.newPlot('visualization4', [trace4], layout4);
 }

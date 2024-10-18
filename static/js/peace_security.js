@@ -95,7 +95,7 @@ function updateVisualizations(selectedCountry, data) {
     let layout1 = {
         title: 'Political Stability and Absence of Violence/Terrorism (Estimate)',
         xaxis: { title: 'Year' },
-        yaxis: { title: 'Estimate' }
+        yaxis: { title: 'Estimate (std -2.5 to 2.5)' }
     };
 
     Plotly.newPlot('visualization1', [trace1], layout1);
@@ -113,7 +113,7 @@ function updateVisualizations(selectedCountry, data) {
     let layout2 = {
         title: 'Government Effectiveness (Estimate)',
         xaxis: { title: 'Year' },
-        yaxis: { title: 'Estimate' }
+        yaxis: { title: 'Estimate (std -2.5 to 2.5)' }
     };
 
     Plotly.newPlot('visualization2', [trace2], layout2);
@@ -160,7 +160,7 @@ function updateVisualizations(selectedCountry, data) {
     let layout4 = {
         title: 'Net Migration',
         xaxis: { title: 'Year' },
-        yaxis: { title: 'People' }
+        yaxis: { title: 'Number of People' }
     };
 
     Plotly.newPlot('visualization4', [trace4], layout4);
@@ -178,7 +178,7 @@ function updateVisualizations(selectedCountry, data) {
     let layout5 = {
         title: 'Voice and Accountability (Estimate)',
         xaxis: { title: 'Year' },
-        yaxis: { title: 'Estimate' }
+        yaxis: { title: 'Estimate (std -2.5 to 2.5)' }
     };
 
     Plotly.newPlot('visualization5', [trace5], layout5);
@@ -196,7 +196,7 @@ function updateVisualizations(selectedCountry, data) {
     let layout6 = {
         title: 'Rule of Law (Estimate)',
         xaxis: { title: 'Year' },
-        yaxis: { title: 'Estimate' }
+        yaxis: { title: 'Estimate (std -2.5 to 2.5)' }
     };
 
     Plotly.newPlot('visualization6', [trace6], layout6);

@@ -88,7 +88,7 @@ function updateVisualizations(selectedCountry, data) {
     let layout1 = {
         title: 'Gini Index',
         xaxis: { title: 'Year' },
-        yaxis: { title: 'Value' }
+        yaxis: { title: 'Score 0-100' }
     };
 
     Plotly.newPlot('visualization1', [trace1], layout1);
@@ -99,14 +99,14 @@ function updateVisualizations(selectedCountry, data) {
         y: surgCare,
         type: 'Line',
         mode: 'lines+markers',
-        name: 'Risk of impoverishing expenditure for surgical care (% of people at risk)',
+        name: 'Risk of impoverishing expenditure for surgical care',
         line: {color: 'green'}
     };
 
     let layout2 = {
-        title: 'Risk of impoverishing expenditure for surgical care (% of people at risk)',
+        title: 'Risk of impoverishing expenditure for surgical care',
         xaxis: { title: 'Year' },
-        yaxis: { title: 'Estimate' }
+        yaxis: { title: 'Estimated % of people at risk' }
     };
 
     Plotly.newPlot('visualization2', [trace2], layout2);
