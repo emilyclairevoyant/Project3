@@ -43,7 +43,22 @@ function createMap() {
         },
         style: function(feature) {
           let countryname = feature.properties.COUNTRY;
-          let selectedCountryData = qualityData.find(item => item['Country Name'] === countryname);
+          let selectedCountryData = "N/A";
+          if (countryname === "Russian Federation") {
+            selectedCountryData = qualityData.find(item => item['Country Name'] === "Russia");
+  
+          } else if (countryname === "Turkiye") {
+            selectedCountryData = qualityData.find(item => item['Country Name'] === "Turkey");
+            
+          } else if (countryname === "Côte d'Ivoire") {
+            selectedCountryData = qualityData.find(item => item['Country Name'] === "Ivory Coast");
+            
+          } else if (countryname === "Congo DRC") {
+            selectedCountryData = qualityData.find(item => item['Country Name'] === "DR Congo");
+            
+          } else {
+            selectedCountryData = qualityData.find(item => item['Country Name'] === countryname);}
+          
           let qualityScore = selectedCountryData ? selectedCountryData['Quality of Life  '] : 0;
       
           let fillColor;
@@ -227,7 +242,6 @@ function createMap() {
               .append("p").text(`Country Code: ${selectedCountryData['Country Code']}`)
               .append("p").text(`Population: ${selectedCountryData['Population']}`)
               .append("p").text(`Quality of Life (Numbeo 2023): ${qualityOfLife}`)
-              .append("p").text(`Rank: ${rank}`)
               ;
   
           // Retrieve and display the country flag

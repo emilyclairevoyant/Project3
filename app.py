@@ -19,6 +19,7 @@ collection_country_flags = db['country_flags']
 collection_affordability = db['affordability']
 collection_jobMarket = db['jobMarket']
 collection_fam_friend = db['fam_friend']
+collection_health = db['health']
 
 @app.route('/data_2019', methods=['GET'])
 def fetch_data():
@@ -57,6 +58,20 @@ def fetch_geo_json():
         for item in data_geo_json:
             item['_id'] = str(item['_id'])
         return jsonify(data_geo_json)
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+@app.route("/health_graphs")
+def health_graphs():
+    return render_template('health.html') 
+
+@app.route('/health', methods=['GET'])
+def fetch_health_data():
+    try:
+        data_health = list(collection_health.find())
+        for item in data_health:
+            item['_id'] = str(item['_id'])
+        return jsonify(data_health)
     except Exception as e:
         return jsonify({"error": str(e)}), 500
     
@@ -147,7 +162,7 @@ def famfriend():
 def jobM():
     return render_template('jobM.html')  
 
-@app.route('/Affordability')
+@app.route('/affordability')
 def affordability():
     return render_template('affordability.html')
 

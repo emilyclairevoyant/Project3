@@ -243,5 +243,3 @@ d3.select("#countrySelect").on("change", function() {
 
 // Initialize the dashboard on page load
 init();
-
-
