@@ -29,7 +29,11 @@
       <div class="col-md-3">
         <div class="card card-body bg-light">
           <h6>Select a Country:</h6>
+<<<<<<< HEAD
           <select id="countrySelect" onchange="optionChanged(this.value)"></select> <!-- Dropdown for selecting country -->
+=======
+          <select id="countrySelect" onchange="updateCharts()"></select>
+>>>>>>> 26d8e7a2eb414ace56ac9c385c04471ce55ea410
         </div>
       </div>
     </div>
@@ -64,8 +68,20 @@
 
   </div>
 
+<<<<<<< HEAD
   <script src="https://code.highcharts.com/highcharts.js"></script> <!-- Highcharts library -->
   <script src="../static/js/highcharts_logic.js"></script> <!-- Assuming you have the logic in a separate JS file -->
+=======
+  <head>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+    <script src="http://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/series-label.js"></script>
+    <script src="http://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
+    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <script src="../static/js/highcharts_logic.js"></script> 
+>>>>>>> 26d8e7a2eb414ace56ac9c385c04471ce55ea410
   </body>
 
 </html>

@@ -12,7 +12,18 @@ collection_2019 = db['data_2019']
 collection_consolidated = db['consolidated_data']
 collection_peace_security = db['peace_and_security']
 collection_summary_info = db['summary_info']
+<<<<<<< HEAD
 collection_data_2022 = db['data_2022']
+=======
+collection_infrastructure = db['infrastructure']
+collection_data_2022 = db['data_2022']
+collection_geojson = db['geojson']
+collection_country_flags = db['country_flags']
+collection_affordability = db['affordability']
+collection_jobMarket = db['jobMarket']
+collection_fam_friend = db['fam_friend']
+collection_health = db['health']
+>>>>>>> 26d8e7a2eb414ace56ac9c385c04471ce55ea410
 
 @app.route('/data_2019', methods=['GET'])
 def fetch_data():
@@ -34,6 +45,41 @@ def fetch_consolidated_data():
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
+@app.route('/affordability_data', methods=['GET'])
+def fetch_affordability_data():
+    try:
+        data_afford = list(collection_affordability.find())
+        for item in data_afford:
+            item['_id'] = str(item['_id'])
+        return jsonify(data_afford)
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+@app.route('/geo_json', methods=['GET'])
+def fetch_geo_json():
+    try:
+        data_geo_json = list(collection_geojson.find())
+        for item in data_geo_json:
+            item['_id'] = str(item['_id'])
+        return jsonify(data_geo_json)
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+@app.route("/health_graphs")
+def health_graphs():
+    return render_template('health.html') 
+
+@app.route('/health', methods=['GET'])
+def fetch_health_data():
+    try:
+        data_health = list(collection_health.find())
+        for item in data_health:
+            item['_id'] = str(item['_id'])
+        return jsonify(data_health)
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+    
+
 @app.route('/peace_and_security', methods=['GET'])
 def fetch_peace_and_security():
     try:
@@ -43,6 +89,44 @@ def fetch_peace_and_security():
         return jsonify(data_peace_and_security)
     except Exception as e:
         return jsonify({"error": str(e)}), 500
+
+@app.route('/infrastructure_data', methods=['GET'])
+def fetch_infrastructure_data():
+    try:
+        data_infrastructure = list(collection_infrastructure.find())
+        for item in data_infrastructure:
+            item['_id'] = str(item['_id'])
+        return jsonify(data_infrastructure)
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+@app.route('/country_flags', methods=['GET'])
+def fetch_flag_data():
+    try:
+        data_flags = list(collection_country_flags.find())
+        for item in data_flags:
+            item['_id'] = str(item['_id'])
+        return jsonify(data_flags)
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+@app.route('/peace_security', methods=['GET'])
+def peace_security():
+    return render_template('peace_security_index.html')
+
+@app.route('/parameters', methods=['GET'])
+def fetch_parameters():
+    try:
+        data_parameters = list(collection_data_2022.find())
+        for item in data_parameters:
+            item['_id'] = str(item['_id'])
+        return jsonify(data_parameters)
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+@app.route('/parameters_map', methods=['GET'])
+def parameters_map():
+    return render_template('parameters.html')
 
 @app.route('/summary_info', methods=['GET'])
 def fetch_summary_info():
@@ -54,6 +138,7 @@ def fetch_summary_info():
     except Exception as e:
         return jsonify({"error": str(e)}), 500
     
+<<<<<<< HEAD
 @app.route('/parameters', methods=['GET'])
 def fetch_parameters():
     try:
@@ -61,10 +146,51 @@ def fetch_parameters():
         for item in data_parameters:
             item['_id'] = str(item['_id'])
         return jsonify(data_parameters)
+=======
+@app.route('/jobMarket_data', methods=['GET'])
+def fetch_jobMarket():
+    try:
+        data_jobMarket = list(collection_jobMarket.find())
+        for item in data_jobMarket:
+            item['_id'] = str(item['_id'])
+        return jsonify(data_jobMarket)
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+    
+@app.route('/FamFr_data', methods=['GET'])
+def fetch_famfr():
+    try:
+        data_family = list(collection_fam_friend.find())
+        for item in data_family:
+            item['_id'] = str(item['_id'])
+        return jsonify(data_family)
+>>>>>>> 26d8e7a2eb414ace56ac9c385c04471ce55ea410
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
+@app.route("/FamFr")
+def famfriend():
+    return render_template('family.html') 
 
+@app.route("/jobMarket")
+def jobM():
+    return render_template('jobM.html')  
+
+@app.route('/affordability')
+def affordability():
+    return render_template('affordability.html')
+
+@app.route('/infrastructure')
+def infrastructure():
+    return render_template('infra_index.html')
+
+@app.route('/top_10_bottom_10')
+def top_10():
+    return render_template('top_10_bottom_10_countries.html')
+
+@app.route('/About')
+def about():
+    return render_template('about.html')
 
 @app.route("/")
 def home():
