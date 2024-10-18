@@ -5,32 +5,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Parameter: Affordability</title>
+  <title>Parameter Peace and Security</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-<<<<<<< HEAD
-  <style>
-    #visualization1, #visualization2, #visualization3, #visualization4, #visualization5 {
-      height: 400px; /* Adjust the height for your graphs */
-    }
-  </style>
-</head>
-
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Parameter: Affordability</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-=======
->>>>>>> 82d3323b8d02cb66997c383eafbfc3fe365f6532
   <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
   <style>
-    #visualization1, #visualization2, #visualization3, #visualization4, #visualization5 {
+    #visualization1, #visualization2, #visualization3, #visualization4, #visualization5, #visualization6, #heatmap {
       height: 400px; /* Adjust the height for your graphs */
     }
   </style>
@@ -41,8 +21,8 @@
   <div class="container">
     <div class="row">
       <div class="col-md-12 p-5 text-center bg-light">
-        <h1>Affordability Parameters</h1>
-        <p>Did you know? The Gini Index illustrates wealth inequality in a country.</p>
+        <h1>Peace and Security Parameters</h1>
+        <p>Do you know Voice and accountability captures perceptions of the extent to which a country's citizens are able to participate in selecting their government, as well as freedom of expression, freedom of association, and a free media.</p>
       </div>
     </div>
     <br>
@@ -52,12 +32,6 @@
           <h6>Select a Country:</h6>
           <select id="countrySelect" onchange="optionChanged(this.value)"></select> <!-- Dropdown for selecting country -->
         </div>
-<<<<<<< HEAD
-        <a class='btn btn-primary' href="/">Home
-              <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.0/css/bootstrap.min.css" integrity="sha256-/ykJw/wDxMa0AQhHDYfuMEwVb4JHMx9h4jD4XvHqVzU=" crossorigin="anonymous" />
-           </a>
-=======
->>>>>>> 82d3323b8d02cb66997c383eafbfc3fe365f6532
       </div>
     </div>
 
@@ -86,7 +60,16 @@
       <div class="col-md-6">
         <div id="visualization5"></div> <!-- Graph 5 -->
       </div>
-      
+      <div class="col-md-6">
+        <div id="visualization6"></div> <!-- Graph 6 -->
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <div class="col-md-12">
+        <div id="heatmap"></div> <!-- Heatmap -->
+      </div>
+    </div>
 
   </div>
 
@@ -95,7 +78,7 @@
   <script src="https://cdn.plot.ly/plotly-latest.min.js"></script> <!-- For Plotly graphs -->
   <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script> <!-- For CanvaJS graph -->
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-  <script src="../static/js/affordability.js"></script> <!-- Assuming you have the logic in a separate JS file -->
+  <script src="../static/js/peace_security.js"></script> <!-- Assuming you have the logic in a separate JS file -->
 
 </body>
 </html>
