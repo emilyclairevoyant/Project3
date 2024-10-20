@@ -108,7 +108,6 @@ Country Selection:
 
 Select a country from the drop-down menu and the Summary Info table changes displaying the information about the country selected.
 
-Jquery.js is used to asynchronously render HTML elements for charts when a country is selected.
 
 Buttons:
 
