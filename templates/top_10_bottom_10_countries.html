@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quality of Life Rankings</title>
+
+    <!-- Bootstrap CSS for styling the Home button -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.0/css/bootstrap.min.css" integrity="sha256-/ykJw/wDxMa0AQhHDYfuMEwVb4JHMx9h4jD4XvHqVzU=" crossorigin="anonymous" />
+
     <style>
         table {
             width: 50%;
@@ -19,20 +23,27 @@
         th {
             background-color: #f2f2f2;
         }
+        /* Position the Home button at the top-right corner */
+        .text-right {
+            text-align: right;
+            padding: 10px;
+            position: fixed;
+            top: 10px;
+            right: 10px;
+        }
     </style>
 </head>
 <body>
 
+    <!-- Home button at the top-right corner -->
+    <div class="text-right">
+        <a class="btn btn-primary" href="/">Home</a>
+    </div>
+
+    <!-- Page title -->
     <h1>Top 10 and Bottom 10 Countries by Quality of Life (Numbeo 2023)</h1>
-    </div>
-    <br>
-     <div class="text-right" style="padding: 10px;">
-      <a class='btn btn-primary' href="/">Home
-                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.0/css/bootstrap.min.css" integrity="sha256-/ykJw/wDxMa0AQhHDYfuMEwVb4JHMx9h4jD4XvHqVzU=" crossorigin="anonymous"  />
-             </a>
-             </div>
-        <br>
-    </div>
+
+    <!-- Top 10 Countries Table -->
     <h2>Top 10 Countries</h2>
     <table id="top10">
         <thead>
@@ -45,6 +56,7 @@
         <tbody></tbody>
     </table>
 
+    <!-- Bottom 10 Countries Table -->
     <h2>Bottom 10 Countries</h2>
     <table id="bottom10">
         <thead>
@@ -56,6 +68,9 @@
         </thead>
         <tbody></tbody>
     </table>
+
+    <!-- Include D3.js library from CDN -->
+    <script src="https://d3js.org/d3.v6.min.js"></script>
 
     <!-- Include the script file -->
     <script src="../static/js/top_and_bottom_ten_countries.js"></script>

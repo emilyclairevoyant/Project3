@@ -1,43 +1,45 @@
-// Function to fetch data from the API and populate the tables
-async function fetchCountryData() {
-    try {
-        const response = await fetch('http://127.0.0.1:5000/summary_info');
-        const data = await response.json();
+// Fetch the data from the API and process it
+d3.json('http://127.0.0.1:5000/summary_info')
+    .then((data) => {
+        // Filter out entries that don't have a Quality of Life value
+        let validData = data.filter(country => country.hasOwnProperty('Quality of Life  ') && !isNaN(country['Quality of Life  ']));
 
-        // Function to create table rows
-        function createTableRows(countries) {
-            return countries.map(country => `
-                <tr>
-                    <td>${country['Rank']}</td>
-                    <td>${country['Country Name']}</td>
-                    <td>${country['Quality of Life  ']}</td>
-                </tr>
-            `).join('');
+        // Sort the data based on Quality of Life Index values in descending order
+        let sortedData = validData.sort((a, b) => b['Quality of Life  '] - a['Quality of Life  ']);
+
+        // Get the top 10 countries
+        let top10 = sortedData.slice(0, 10);
+
+        // Get the bottom 10 countries
+        let bottom10 = sortedData.slice(-10);
+
+        // Function to display the rankings in a table format
+        function displayRankings(rankings, tableId, totalCount, isBottom = false) {
+            let tableBody = document.querySelector(`#${tableId} tbody`);
+
+            // Clear any existing content in the table
+            tableBody.innerHTML = '';
+
+            // Loop through the rankings and create table rows
+            rankings.forEach((country, index) => {
+                let rank = isBottom ? totalCount - (rankings.length - index) + 1 : index + 1; // Adjust rank for bottom countries
+                let row = `
+                    <tr>
+                        <td>${rank}</td>  <!-- Rank -->
+                        <td>${country['Country Name']}</td>  <!-- Country Name -->
+                        <td>${country['Quality of Life  ']}</td>  <!-- Quality of Life Index -->
+                    </tr>
+                `;
+                tableBody.innerHTML += row;
+            });
         }
 
-        // Filter out countries without a 'Quality of Life' index
-        const countriesWithQualityOfLife = data.filter(country => country["Quality of Life  "] !== undefined);
+        // Display top 10 countries
+        displayRankings(top10, 'top10', sortedData.length);
 
-        // Sort the countries by 'Quality of Life' in descending order
-        countriesWithQualityOfLife.sort((a, b) => b['Quality of Life  '] - a['Quality of Life  ']);
-
-        // Assign dynamic Rank based on the sorted order
-        countriesWithQualityOfLife.forEach((country, index) => {
-            country['Rank'] = index + 1;
-        });
-
-        // Get the top 10 and bottom 10 countries
-        const top10Countries = countriesWithQualityOfLife.slice(0, 10);
-        const bottom10Countries = countriesWithQualityOfLife.slice(-10);
-
-        // Insert the rows into the respective tables
-        document.querySelector('#top10 tbody').innerHTML = createTableRows(top10Countries);
-        document.querySelector('#bottom10 tbody').innerHTML = createTableRows(bottom10Countries);
-
-    } catch (error) {
-        console.error('Error fetching country data:', error);
-    }
-}
-
-// Call the function to fetch and render the country data
-fetchCountryData();
+        // Display bottom 10 countries
+        displayRankings(bottom10, 'bottom10', sortedData.length, true);
+    })
+    .catch((error) => {
+        console.error("Error fetching or processing data:", error);
+    });

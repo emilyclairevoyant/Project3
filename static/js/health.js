@@ -109,28 +109,39 @@ function updateVisualizations(selectedCountry, data) {
 
     Plotly.newPlot('visualization1', [trace1], layout1);
 
-    // Use CanvasJS to create the column chart for DPT Immunization (Visualization 2)
-    var dptChart = new CanvasJS.Chart("visualization2", {
-        animationEnabled: true,
-        theme: "light2",
-        title: {
-            text: "Immunization, DPT (% of children ages 12-23 months)"
-        },
-        axisX: {
-            title: "Year",
-            interval: 1
-        },
-        axisY: {
-            title: "% of children ages 12-23 months",
-            includeZero: true
-        },
-        data: [{
-            type: "column",  // Column chart type
+    // Use CanvasJS to create a stacked column chart for DPT and Measles Immunization
+var immunizationChart = new CanvasJS.Chart("visualization2", {
+    animationEnabled: true,
+    theme: "light2",
+    title: {
+        text: "Immunization (% of children ages 12-23 months)"
+    },
+    axisX: {
+        title: "Year",
+        interval: 1
+    },
+    axisY: {
+        title: "% of children ages 12-23 months",
+        includeZero: true
+    },
+    data: [
+        {
+            type: "stackedColumn",  // Stacked column chart type
+            name: "DPT Immunization",
+            showInLegend: true,
             dataPoints: years.map((year, i) => ({ label: year, y: dptImmunization[i] }))
-        }]
-    });
+        },
+        {
+            type: "stackedColumn",  // Stacked column chart type
+            name: "Measles Immunization",
+            showInLegend: true,
+            dataPoints: years.map((year, i) => ({ label: year, y: measlesImmunization[i] }))
+        }
+    ]
+});
 
-    dptChart.render();
+// Render the stacked column chart
+immunizationChart.render();
 
     // Use CanvasJS to create the bar chart for Life Expectancy (Visualization 3)
     var lifeExpectancyChart = new CanvasJS.Chart("visualization3", {
@@ -148,7 +159,7 @@ function updateVisualizations(selectedCountry, data) {
             includeZero: true
         },
         data: [{
-            type: "bar",  // Horizontal bar chart
+            type: "column",  // column chart
             dataPoints: years.map((year, i) => ({ label: year, y: lifeExpectancy[i] }))
         }]
     });
@@ -209,28 +220,6 @@ function updateVisualizations(selectedCountry, data) {
 
     Plotly.newPlot('visualization6', [trace6], layout6);
 
-    // Use CanvasJS to create the chart for Measles Immunization (Visualization 7)
-    var measlesChart = new CanvasJS.Chart("visualization7", {
-        animationEnabled: true,
-        theme: "light2",
-        title: {
-            text: "Immunization, Measles (% of children ages 12-23 months)"
-        },
-        axisX: {
-            title: "Year",
-            interval: 1
-        },
-        axisY: {
-            title: "% of children ages 12-23 months",
-            includeZero: true
-        },
-        data: [{
-            type: "column",  // Column chart type
-            dataPoints: years.map((year, i) => ({ label: year, y: measlesImmunization[i] }))
-        }]
-    });
-
-    measlesChart.render();
 }
 
 // Event listener for dropdown change
